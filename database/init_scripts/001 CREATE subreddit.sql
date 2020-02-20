@@ -1,0 +1,4 @@
+CREATE TABLE subreddit(
+	db_id SERIAL PRIMARY KEY,
+	name VARCHAR(250) UNIQUE NOT NULL
+);
