@@ -6,3 +6,4 @@ CREATE TABLE link (
     target_subreddit_db_id INT NOT NULL,
     post_label smallint NOT NULL
 );
+-------------_-

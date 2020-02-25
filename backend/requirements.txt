@@ -1,0 +1,6 @@
+python-dotenv
+psycopg2
+flask
+flask-sqlalchemy
+flask-cors
+flask-caching
