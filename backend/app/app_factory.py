@@ -18,7 +18,7 @@ def create_app(config):
 
     cache.init_app(app)
 
-    from app.clusters import clusters
+    from app.cluster_routes import clusters
 
     app.register_blueprint(clusters)
 
