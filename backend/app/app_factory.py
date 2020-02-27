@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-
+from werkzeug.contrib.profiler import ProfilerMiddleware
 
 from app.database import db
 from app.cache import cache
@@ -18,7 +18,11 @@ def create_app(config):
 
     cache.init_app(app)
 
-    from app.clusters import clusters
+    if config.PROFILE:
+        app.wsgi_app = ProfilerMiddleware(app.wsgi_app, restrictions=[30], profile_dir="")
+
+
+    from app.cluster_routes import clusters
 
     app.register_blueprint(clusters)
 

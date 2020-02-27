@@ -1,6 +1,10 @@
 python-dotenv
-psycopg2
+psycopg2-binary
 flask
 flask-sqlalchemy
 flask-cors
 flask-caching
+cerberus
+networkx
+markov_clustering
+werkzeug==0.16.0

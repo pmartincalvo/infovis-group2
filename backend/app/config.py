@@ -15,6 +15,7 @@ class Config:
         f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}"
     )
     API_PORT = os.environ["API_PORT"]
+    PROFILE = True
 
 
 config = Config()
