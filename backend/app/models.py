@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-
+from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -21,3 +21,6 @@ class Link(Base):
     source_subreddit_db_id = Column(Integer, ForeignKey("subreddit.db_id"))
     target_subreddit_db_id = Column(Integer, ForeignKey("subreddit.db_id"))
     post_label = Column(Integer)
+
+    source_subreddit_name = relationship("Subreddit", foreign_keys=[source_subreddit_db_id])
+    target_subreddit_name = relationship("Subreddit", foreign_keys=[target_subreddit_db_id])
