@@ -55,7 +55,14 @@ def generate_clusters(clustering_parameters):
     metadata["subreddit_count"] = network.number_of_nodes()
     clusters = compute_clusters(network)
     metadata["cluster_count"] = len(clusters)
-    # If depth rule dictates, cluster on clusters recursively
+
+    # If depth dictates, cluster on clusters
+    depth = clustering_parameters["depth"] - 1
+    while depth > 0:
+        network = clusters_to_network(clusters, link_subset)
+        clusters = compute_clusters(network)
+        metadata["cluster_count"] = len(clusters)
+        depth = depth - 1
 
     return clusters, metadata
 
@@ -73,7 +80,7 @@ def links_to_network(links):
 
     return network
 
-def clusters_to_network(clusters):
+def clusters_to_network(clusters, links):
     pass
 
 
