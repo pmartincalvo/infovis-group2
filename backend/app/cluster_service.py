@@ -1,9 +1,10 @@
 from datetime import datetime
 
 from cerberus import Validator
-from sqlalchemy import or_
+from sqlalchemy import or_, func
 import networkx
 import markov_clustering
+import community
 
 from app.database import db
 from app.models import Link
@@ -18,18 +19,70 @@ CLUSTERING_REQUEST_INPUT_SCHEMA = {
         "coerce": to_date,
     },
     "datetime_interval_end": {"type": "datetime", "nullable": False, "coerce": to_date},
-    "depth": {"type": "integer", "nullable": False, "min": 0, "max": 4},
-    "selected_subreddits": {"type": "set", "schema": {"type": "integer"}, "coerce": set},
+    "selected_subreddits": {
+        "type": "set",
+        "schema": {"type": "integer"},
+        "coerce": set,
+    },
 }
 clustering_request_input_validator = Validator(CLUSTERING_REQUEST_INPUT_SCHEMA)
 
+NODE_SCHEMA = {
+    "type": "dict",
+    "schema": {"id": {"type": "integer"}, "name": {"type": "string"}},
+}
+EDGE_SCHEMA = {
+    "type": "dict",
+    "schema": {
+        "origin_node_id": {"type": "integer"},
+        "destination_node_id": {"type": "integer"},
+        "weight": {"type": "integer"},
+    },
+}
+NETWORK_SCHEMA = {
+    "nodes": {"type": "list", "schema": NODE_SCHEMA},
+    "edges": {"type": "list", "schema": EDGE_SCHEMA},
+}
+CLUSTERING_REQUEST_OUTPUT_SCHEMA = {
+    "success": {"type": "boolean", "nullable": False},
+    "message": {"type": "string"},
+    "networks": {
+        "type": "dict",
+        "schema": {
+            0: {"type": "dict", "schema": NETWORK_SCHEMA, "nullable": False},
+            1: {"type": "dict", "schema": NETWORK_SCHEMA, "nullable": True},
+            2: {"type": "dict", "schema": NETWORK_SCHEMA, "nullable": True},
+            3: {"type": "dict", "schema": NETWORK_SCHEMA, "nullable": True},
+            4: {"type": "dict", "schema": NETWORK_SCHEMA, "nullable": True},
+            5: {"type": "dict", "schema": NETWORK_SCHEMA, "nullable": True},
+            6: {"type": "dict", "schema": NETWORK_SCHEMA, "nullable": True},
+        },
+        "nullable": False,
+    },
+    "dendrogram": {"type": "list", "nullable": False},
+    "metadata": {
+        "type": "dict",
+        "schema": {
+            "subreddit_count": {"type": "integer"},
+            "network_levels": {"type": "integer"},
+            "link_count": {"type": "integer"},
+        },
+        "nullable": False,
+    },
+}
+clustering_request_output_validator = Validator(CLUSTERING_REQUEST_OUTPUT_SCHEMA)
 
-def generate_clusters(clustering_parameters):
+
+def generate_clustered_networks(clustering_parameters):
     metadata = {}
 
     # Get subreddit subset
     query = (
-        db.session.query(Link)
+        db.session.query(
+            Link.source_subreddit_db_id,
+            Link.target_subreddit_db_id,
+            func.count(Link.source_subreddit_db_id).label("weight"),
+        )
         .filter(Link.post_timestamp > clustering_parameters["datetime_interval_start"])
         .filter(Link.post_timestamp < clustering_parameters["datetime_interval_end"])
     )
@@ -46,6 +99,8 @@ def generate_clusters(clustering_parameters):
             )
         )
 
+    query = query.group_by(Link.source_subreddit_db_id, Link.target_subreddit_db_id)
+
     link_subset = query.all()
 
     metadata["link_count"] = len(link_subset)
@@ -53,40 +108,46 @@ def generate_clusters(clustering_parameters):
     # Cluster
     network = links_to_network(link_subset)
     metadata["subreddit_count"] = network.number_of_nodes()
-    clusters = compute_clusters(network)
-    metadata["cluster_count"] = len(clusters)
+    clustered_networks, dendogram = compute_clustered_networks(network)
+    metadata["network_levels"] = len(clustered_networks)
 
-    # If depth dictates, cluster on clusters
-    depth = clustering_parameters["depth"] - 1
-    while depth > 0:
-        network = clusters_to_network(clusters, link_subset)
-        clusters = compute_clusters(network)
-        metadata["cluster_count"] = len(clusters)
-        depth = depth - 1
-
-    return clusters, metadata
+    return clustered_networks, dendogram, metadata
 
 
 def links_to_network(links):
     network = networkx.Graph()
     for link in links:
-        if not network.has_node(link.source_subreddit_db_id):
-            network.add_node(link.source_subreddit_db_id) #name=link.source_subreddit_name)
-        if not network.has_node(link.target_subreddit_db_id):
-            network.add_node(link.target_subreddit_db_id) #name=link.target_subreddit_name)
-
-        if not network.has_edge(link.source_subreddit_db_id, link.target_subreddit_db_id):
-            network.add_edge(link.source_subreddit_db_id, link.target_subreddit_db_id)
+        network.add_edge(
+            link.source_subreddit_db_id, link.target_subreddit_db_id, weight=link.weight
+        )
 
     return network
 
-def clusters_to_network(clusters, links):
-    pass
+
+def compute_clustered_networks(original_network):
+    dendrogram = community.generate_dendrogram(original_network)
+    clustered_networks = {0: network_to_custom_format(original_network)}
+    for level in range(len(dendrogram) - 1):
+        partition = community.partition_at_level(dendrogram, level)
+        current_network = community.induced_graph(partition, original_network)
+        clustered_networks[level + 1] = network_to_custom_format(current_network)
+    return clustered_networks, dendrogram
 
 
-def compute_clusters(network):
-    matrix = networkx.to_scipy_sparse_matrix(network)
-    results = markov_clustering.run_mcl(matrix)
-    clusters = markov_clustering.get_clusters(results)
+def network_to_custom_format(network):
+    temp_edges = list(networkx.to_edgelist(network))
+    edges = []
+    for edge in temp_edges:
+        edges.append(
+            {
+                "origin_node_id": edge[0],
+                "destination_node_id": edge[1],
+                "weight": edge[2]["weight"],
+            }
+        )
 
-    return clusters
+    temp_nodes = list(network.nodes)
+    nodes = []
+    for node in temp_nodes:
+        nodes.append({"id": node, "name": ""})
+    return {"nodes": nodes, "edges": edges}

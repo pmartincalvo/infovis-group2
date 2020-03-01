@@ -7,4 +7,5 @@ flask-caching
 cerberus
 networkx
 markov_clustering
+python-louvain
 werkzeug==0.16.0

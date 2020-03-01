@@ -6,6 +6,8 @@ load_dotenv()
 
 
 class Config:
+    ENV = os.environ["FLASK_ENV"]
+
     DB_HOST = os.environ["DB_HOST"]
     DB_USER = os.environ["DB_USER"]
     DB_PASS = os.environ["DB_PASS"]
