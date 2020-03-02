@@ -100,6 +100,7 @@ def generate_clustered_networks(clustering_parameters):
         )
 
     query = query.group_by(Link.source_subreddit_db_id, Link.target_subreddit_db_id)
+    query = query.having(func.count(Link.source_subreddit_db_id).label("weight") > 5)
 
     link_subset = query.all()
 
