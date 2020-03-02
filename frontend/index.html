@@ -232,15 +232,26 @@
 				g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 			}    
 		</script> -->
-
+		<p align="center">go back to the layer above</p>
 	    <script src="https://d3js.org/d3.v3.min.js"></script>
 		<script type="text/javascript">
+
 			var width = 960,     // svg width
 			    height = 600,     // svg height
 			    dr = 4,      // default point radius
 			    off = 15,    // cluster hull offset
 			    expand = {}, // expanded clusters
 			    data, net, force, hullg, hull, linkg, link, nodeg, node;
+			    scale = 1;
+			    zoomWidth = (width-scale*width)/2;
+				zoomHeight = (height-scale*height)/2;
+			    active = d3.select(null);
+
+			var zoom = d3.behavior.zoom()
+				.translate([0,0])
+			    .scaleExtent([1, 10])
+			    .scale(1)
+			    .on("zoom", zoomed);
 
 			var curve = d3.svg.line()
 			    .interpolate("cardinal-closed")
@@ -380,7 +391,8 @@
 
 			var vis = body.append("svg")
 			   .attr("width", width)
-			   .attr("height", height);
+			   .attr("height", height)
+			   .call(zoom);
 
 			d3.json("miserables.json", function(json) {
 			  data = json;
@@ -390,9 +402,12 @@
 			    o.target = data.nodes[o.target];
 			  }
 
-			  hullg = vis.append("g");
-			  linkg = vis.append("g");
-			  nodeg = vis.append("g");
+			  hullg = vis.append("g")
+			  				.call(zoom);
+			  linkg = vis.append("g")
+			  				.call(zoom);
+			  nodeg = vis.append("g")
+			  				.call(zoom);
 
 			  init();
 
@@ -401,6 +416,22 @@
 			      .duration(1000)
 			      .attr("opacity", 1);
 			});
+
+			function zoomed() {
+				console.log(d3.event)
+				nodeg.style("stroke-width", 1.5 / d3.event.scale + "px");
+				nodeg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+				linkg.style("stroke-width", 1.5 / d3.event.scale + "px");
+				linkg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+				hullg.style("stroke-width", 1.5 / d3.event.scale + "px");
+				hullg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+			}  
+
+
+			function reset() {
+				active.classed("active", false);
+				active = d3.select(null);
+			}    
 
 			function init() {
 			  if (force) force.stop();
@@ -413,6 +444,9 @@
 			      .size([width, height])
 			      .linkDistance(function(l, i) {
 			      var n1 = l.source, n2 = l.target;
+
+			    
+
 			    // larger distance for bigger groups:
 			    // both between single nodes and _other_ groups (where size of own node group still counts),
 			    // and between two group nodes.
@@ -442,14 +476,15 @@
 			  hullg.selectAll("path.hull").remove();
 			  hull = hullg.selectAll("path.hull")
 			      .data(convexHulls(net.nodes, getGroup, off))
-			    .enter().append("path")
+			      .enter().append("path")
 			      .attr("class", "hull")
 			      .attr("d", drawCluster)
 			      .style("fill", function(d) { return fill(d.group); })
 			      .on("click", function(d) {
 			console.log("hull click", d, arguments, this, expand[d.group]);
 			      expand[d.group] = false; init();
-			    });
+			    })
+			      ;
 
 			  link = linkg.selectAll("line.link").data(net.links, linkid);
 			  link.exit().remove();
@@ -471,12 +506,33 @@
 			      .attr("cy", function(d) { return d.y; })
 			      .style("fill", function(d) { return fill(d.group); })
 			      .on("click", function(d) {
-			console.log("node click", d, arguments, this, expand[d.group]);
-			        expand[d.group] = !expand[d.group];
-			    init();
+			      		if (active.node() === this) return reset();
+						active.classed("active", false);
+						active = d3.select(this).classed("active", true);
+
+						var bbox = active.node().getBBox(),
+			    			bounds = [[bbox.x, bbox.y],[bbox.x + bbox.width, bbox.y + bbox.height]];
+
+						var dx = bounds[1][0] - bounds[0][0],
+			    			dy = bounds[1][1] - bounds[0][1],
+			    			x = (bounds[0][0] + bounds[1][0]) / 2,
+			    			y = (bounds[0][1] + bounds[1][1]) / 2,
+			    			scale = Math.max(1, Math.min(4, 0.9 / Math.max(dx / width, dy / height))),
+			    			translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+			      		node.transition()
+			      			.duration(3000)
+			      			.call(zoom.translate(translate).scale(scale).event);
+
+						console.log("node click", d, arguments, this, expand[d.group]);
+			        	expand[d.group] = !expand[d.group];
+			    		init();	
 			      });
 
+			  
+
 			  node.call(force.drag);
+
 
 			  force.on("tick", function() {
 			    if (!hull.empty()) {
@@ -493,6 +549,8 @@
 			        .attr("cy", function(d) { return d.y; });
 			  });
 			}
+
+
 		</script>
 	</body>
 </html>
