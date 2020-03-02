@@ -2,6 +2,24 @@
 <html>
 	<head>
     	<title>Clustered Network</title>
+
+    	<!-- To support the dropdown -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<style>
+			.dropdown-submenu {
+			position: relative;
+			}
+			.dropdown-submenu .dropdown-menu {
+				top: 0;
+				left: 100%;
+				margin-top: -1px;
+			}
+		</style>
+
+		<!-- To support the cluster element -->
     	<script src="https://d3js.org/d3.v2.js"></script>
 		<style type="text/css">
 			svg {
@@ -28,22 +46,7 @@
 				stroke-opacity: 0.5;
 				pointer-events: none;
 			}
-    	</style>
-
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-		<style>
-			.dropdown-submenu {
-			position: relative;
-			}
-			.dropdown-submenu .dropdown-menu {
-				top: 0;
-				left: 100%;
-				margin-top: -1px;
-			}
-		</style>
+    	</style>    	
   	</head>
   	
   	<body>
@@ -54,81 +57,78 @@
 			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select date
 			<span class="caret"></span></button>
 			<ul class="dropdown-menu">
-			<!--       <li><a tabindex="-1" href="#">HTML</a></li>
-			  <li><a tabindex="-1" href="#">CSS</a></li> -->
-			  <li class="dropdown-submenu">
+				<!-- <li><a tabindex="-1" href="#">HTML</a></li>
+			  	<li><a tabindex="-1" href="#">CSS</a></li> -->
+			  	<li class="dropdown-submenu">
 			<!--         <a class="test" tabindex="-1" href="#">New dropdown <span class="caret"></span></a>
 			      <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
 			      <li><a tabindex="-1" href="#">2nd level dropdown</a></li> -->
-			      <li class="dropdown-submenu">
-			        <a class="test" href="#">Year 1 <span class="caret"></span></a>
-			        <ul class="dropdown-menu">
-			          <li><a href="#">January</a></li>
-			          <li><a href="#">February</a></li>
-			          <li><a href="#">March</a></li>
-			          <li><a href="#">April</a></li>
-			          <li><a href="#">May</a></li>
-			          <li><a href="#">June</a></li>
-			          <li><a href="#">July</a></li>
-			          <li><a href="#">August</a></li>
-			          <li><a href="#">September</a></li>
-			          <li><a href="#">October</a></li>
-			          <li><a href="#">November</a></li>
-			          <li><a href="#">December</a></li>
-			        </ul>
-			      </li>
-			                <li class="dropdown-submenu">
-			        <a class="test" href="#">Year 2 <span class="caret"></span></a>
-			        <ul class="dropdown-menu">
-			          <li><a href="#">January</a></li>
-			          <li><a href="#">February</a></li>
-			          <li><a href="#">March</a></li>
-			          <li><a href="#">April</a></li>
-			          <li><a href="#">May</a></li>
-			          <li><a href="#">June</a></li>
-			          <li><a href="#">July</a></li>
-			          <li><a href="#">August</a></li>
-			          <li><a href="#">September</a></li>
-			          <li><a href="#">October</a></li>
-			          <li><a href="#">November</a></li>
-			          <li><a href="#">December</a></li>
-			        </ul>
-			      </li>
-			        <li class="dropdown-submenu">
+				    <li class="dropdown-submenu">
+				        <a class="test" href="#">Year 1 <span class="caret"></span></a>
+				        <ul class="dropdown-menu">
+							<li><a href="#">January</a></li>
+							<li><a href="#">February</a></li>
+							<li><a href="#">March</a></li>
+							<li><a href="#">April</a></li>
+							<li><a href="#">May</a></li>
+							<li><a href="#">June</a></li>
+							<li><a href="#">July</a></li>
+							<li><a href="#">August</a></li>
+							<li><a href="#">September</a></li>
+							<li><a href="#">October</a></li>
+							<li><a href="#">November</a></li>
+							<li><a href="#">December</a></li>
+				        </ul>
+				    </li>
+				    <li class="dropdown-submenu">
+				        <a class="test" href="#">Year 2 <span class="caret"></span></a>
+				        <ul class="dropdown-menu">
+							<li><a href="#">January</a></li>
+							<li><a href="#">February</a></li>
+							<li><a href="#">March</a></li>
+							<li><a href="#">April</a></li>
+							<li><a href="#">May</a></li>
+							<li><a href="#">June</a></li>
+							<li><a href="#">July</a></li>
+							<li><a href="#">August</a></li>
+							<li><a href="#">September</a></li>
+							<li><a href="#">October</a></li>
+							<li><a href="#">November</a></li>
+							<li><a href="#">December</a></li>
+				        </ul>
+				    </li>
+			   	<li class="dropdown-submenu">
 			        <a class="test" href="#">Year 3 <span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a href="#">January</a></li>
-			          <li><a href="#">February</a></li>
-			          <li><a href="#">March</a></li>
-			          <li><a href="#">April</a></li>
-			          <li><a href="#">May</a></li>
-			          <li><a href="#">June</a></li>
-			          <li><a href="#">July</a></li>
-			          <li><a href="#">August</a></li>
-			          <li><a href="#">September</a></li>
-			          <li><a href="#">October</a></li>
-			          <li><a href="#">November</a></li>
-			          <li><a href="#">December</a></li>
+						<li><a href="#">January</a></li>
+						<li><a href="#">February</a></li>
+						<li><a href="#">March</a></li>
+						<li><a href="#">April</a></li>
+						<li><a href="#">May</a></li>
+						<li><a href="#">June</a></li>
+						<li><a href="#">July</a></li>
+						<li><a href="#">August</a></li>
+						<li><a href="#">September</a></li>
+						<li><a href="#">October</a></li>
+						<li><a href="#">November</a></li>
+						<li><a href="#">December</a></li>
 			        </ul>
-			        </ul>
-			      </li>
-			    </ul>
-			  </li>
+			    </li>
 			</ul>
 			</div>
 		</div>
 		<script>
 			$(document).ready(function(){
-			  $('.dropdown-submenu a.test').on("click", function(e){
-			    $(this).next('ul').toggle();
-			    e.stopPropagation();
-			    e.preventDefault();
-			  });
+				$('.dropdown-submenu a.test').on("click", function(e){
+					$(this).next('ul').toggle();
+					e.stopPropagation();
+					e.preventDefault();
+				});
 			});
 		</script>
 
 		<!-- Cluster -->
-	    <script src="https://d3js.org/d3.v3.min.js"></script>
+	    <!-- <script src="https://d3js.org/d3.v3.min.js"></script>
 		<script type="text/javascript">
 			var width = 960,
 			    height = 500,
@@ -162,79 +162,79 @@
 			    .call(zoom.event);
 
 			d3.json("https://rawgit.com/d3/d3-plugins/master/graph/data/miserables.json", function(error, graph) {
-			  if (error) throw error;
-			  
-			  force
-			      .nodes(graph.nodes)
-			      .links(graph.links)
-			      .start();
+				if (error) throw error;
 
-			  link = link.data(graph.links)
-			    .enter().append("line")
-			      .attr("class", "links")
-			      .style("stroke", "#999");
+				force
+					.nodes(graph.nodes)
+					.links(graph.links)
+					.start();
 
-			  node = node.data(graph.nodes)
-			    .enter().append("circle")
-			      .attr("class", "node")
-			      .attr("r", 12)
-			      .on("click", clicked)
-			      // .call(drag);
+				link = link.data(graph.links)
+					.enter().append("line")
+					.attr("class", "links")
+					.style("stroke", "#999");
+
+				node = node.data(graph.nodes)
+					.enter().append("circle")
+					.attr("class", "node")
+					.attr("r", 12)
+					.on("click", clicked)
+					.call(drag);
 			});
 
 			function tick() {
-			  link.attr("x1", function(d) { return d.source.x; })
-			      .attr("y1", function(d) { return d.source.y; })
-			      .attr("x2", function(d) { return d.target.x; })
-			      .attr("y2", function(d) { return d.target.y; });
+				link.attr("x1", function(d) { return d.source.x; })
+					.attr("y1", function(d) { return d.source.y; })
+					.attr("x2", function(d) { return d.target.x; })
+					.attr("y2", function(d) { return d.target.y; });
 
-			  node.attr("cx", function(d) { return d.x; })
-			      .attr("cy", function(d) { return d.y; });
+				node.attr("cx", function(d) { return d.x; })
+			    	.attr("cy", function(d) { return d.y; });
 			}
 
 			function clicked(d){
-			  if (active.node() === this) return reset();
-			  active.classed("active", false);
-			  active = d3.select(this).classed("active", true);
+				if (active.node() === this) return reset();
+				active.classed("active", false);
+				active = d3.select(this).classed("active", true);
 
-			  var bbox = active.node().getBBox(),
-			      bounds = [[bbox.x, bbox.y],[bbox.x + bbox.width, bbox.y + bbox.height]];
+				var bbox = active.node().getBBox(),
+			    	bounds = [[bbox.x, bbox.y],[bbox.x + bbox.width, bbox.y + bbox.height]];
 
-			  var dx = bounds[1][0] - bounds[0][0],
-			      dy = bounds[1][1] - bounds[0][1],
-			      x = (bounds[0][0] + bounds[1][0]) / 2,
-			      y = (bounds[0][1] + bounds[1][1]) / 2,
-			      scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
-			      translate = [width / 2 - scale * x, height / 2 - scale * y];
+				var dx = bounds[1][0] - bounds[0][0],
+			    	dy = bounds[1][1] - bounds[0][1],
+			    	x = (bounds[0][0] + bounds[1][0]) / 2,
+			    	y = (bounds[0][1] + bounds[1][1]) / 2,
+			    	scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
+			    	translate = [width / 2 - scale * x, height / 2 - scale * y];
 
-			  svg.transition()
-			      .duration(750)
-			      .call(zoom.translate(translate).scale(scale).event);
+				svg.transition()
+					.duration(750)
+					.call(zoom.translate(translate).scale(scale).event);
 			} 
 
 			function reset() {
-			  active.classed("active", false);
-			  active = d3.select(null);
+				active.classed("active", false);
+				active = d3.select(null);
 
-			  svg.transition()
-			      .duration(750)
-			      .call(zoom.translate([0, 0]).scale(1).event);
+			svg.transition()
+				.duration(750)
+				.call(zoom.translate([0, 0]).scale(1).event);
 			}    
 
 
 			function dragstart(d) {
-			  d3.select(this).classed("fixed", d.fixed = true);
+				d3.select(this).classed("fixed", d.fixed = true);
 			}
 
 			function zoomed() {
-			  console.log(d3.event)
-			  g.style("stroke-width", 1.5 / d3.event.scale + "px");
-			  g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+				console.log(d3.event)
+				g.style("stroke-width", 1.5 / d3.event.scale + "px");
+				g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 			}    
-		</script>
+		</script> -->
 
-	    <!-- <script src="https://d3js.org/d3.v3.min.js"></script> -->
-		<!-- <script type="text/javascript">
+	    <script src="https://d3js.org/d3.v3.min.js"></script>
+		<script type="text/javascript">
 			var width = 960,     // svg width
 			    height = 600,     // svg height
 			    dr = 4,      // default point radius
@@ -264,112 +264,114 @@
 
 			// constructs the network to visualize
 			function network(data, prev, index, expand) {
-			  expand = expand || {};
-			  var gm = {},    // group map
-			      nm = {},    // node map
-			      lm = {},    // link map
-			      gn = {},    // previous group nodes
-			      gc = {},    // previous group centroids
-			      nodes = [], // output nodes
-			      links = []; // output links
+				expand = expand || {};
+				var gm = {},    // group map
+				nm = {},    // node map
+				lm = {},    // link map
+				gn = {},    // previous group nodes
+				gc = {},    // previous group centroids
+				nodes = [], // output nodes
+				links = []; // output links
 
-			  // process previous nodes for reuse or centroid calculation
-			  if (prev) {
-			    prev.nodes.forEach(function(n) {
-			      var i = index(n), o;
-			      if (n.size > 0) {
-			        gn[i] = n;
-			        n.size = 0;
-			      } else {
-			        o = gc[i] || (gc[i] = {x:0,y:0,count:0});
-			        o.x += n.x;
-			        o.y += n.y;
-			        o.count += 1;
-			      }
-			    });
-			  }
+				// process previous nodes for reuse or centroid calculation
+				if (prev) {
+					prev.nodes.forEach(function(n) {
+						var i = index(n), o;
+						if (n.size > 0) {
+						gn[i] = n;
+						n.size = 0;
+						} else {
+						o = gc[i] || (gc[i] = {x:0,y:0,count:0});
+						o.x += n.x;
+						o.y += n.y;
+						o.count += 1;
+						}
+					});
+				}
 
-			  // determine nodes
-			  for (var k=0; k<data.nodes.length; ++k) {
-			    var n = data.nodes[k],
-			        i = index(n),
-			        l = gm[i] || (gm[i]=gn[i]) || (gm[i]={group:i, size:0, nodes:[]});
+				// determine nodes
+				for (var k=0; k<data.nodes.length; ++k) {
+					var n = data.nodes[k],
+				    i = index(n),
+				    l = gm[i] || (gm[i]=gn[i]) || (gm[i]={group:i, size:0, nodes:[]});
 
-			    if (expand[i]) {
-			      // the node should be directly visible
-			      nm[n.name] = nodes.length;
-			      nodes.push(n);
-			      if (gn[i]) {
-			        // place new nodes at cluster location (plus jitter)
-			        n.x = gn[i].x + Math.random();
-			        n.y = gn[i].y + Math.random();
-			      }
-			    } else {
-			      // the node is part of a collapsed cluster
-			      if (l.size == 0) {
-			        // if new cluster, add to set and position at centroid of leaf nodes
-			        nm[i] = nodes.length;
-			        nodes.push(l);
-			        if (gc[i]) {
-			          l.x = gc[i].x / gc[i].count;
-			          l.y = gc[i].y / gc[i].count;
-			        }
-			      }
-			      l.nodes.push(n);
-			    }
-			  // always count group size as we also use it to tweak the force graph strengths/distances
-			    l.size += 1;
-			  n.group_data = l;
-			  }
+					if (expand[i]) {
+						// the node should be directly visible
+						nm[n.name] = nodes.length;
+						nodes.push(n);
+						if (gn[i]) {
+							// place new nodes at cluster location (plus jitter)
+							n.x = gn[i].x + Math.random();
+							n.y = gn[i].y + Math.random();
+						}
+					} else {
+						// the node is part of a collapsed cluster
+						if (l.size == 0) {
+							// if new cluster, add to set and position at centroid of leaf nodes
+							nm[i] = nodes.length;
+							nodes.push(l);
+							if (gc[i]) {
+								l.x = gc[i].x / gc[i].count;
+								l.y = gc[i].y / gc[i].count;
+							}
+						}
+					l.nodes.push(n);
+					}
+					// always count group size as we also use it to tweak the force graph strengths/distances
+					l.size += 1;
+					n.group_data = l;
+				}
+				for (i in gm) { gm[i].link_count = 0; 
+			}
 
-			  for (i in gm) { gm[i].link_count = 0; }
+			// determine links
+			for (k=0; k<data.links.length; ++k) {
+				var e = data.links[k],
+				    u = index(e.source),
+				    v = index(e.target);
+				if (u != v) {
+					gm[u].link_count++;
+					gm[v].link_count++;
+				}
+				u = expand[u] ? nm[e.source.name] : nm[u];
+				v = expand[v] ? nm[e.target.name] : nm[v];
+				var i = (u<v ? u+"|"+v : v+"|"+u),
+				l = lm[i] || (lm[i] = {source:u, target:v, size:0});
+				l.size += 1;
+			}
+			for (i in lm) { 
+				links.push(lm[i]); 
+			}
 
-			  // determine links
-			  for (k=0; k<data.links.length; ++k) {
-			    var e = data.links[k],
-			        u = index(e.source),
-			        v = index(e.target);
-			  if (u != v) {
-			    gm[u].link_count++;
-			    gm[v].link_count++;
-			  }
-			    u = expand[u] ? nm[e.source.name] : nm[u];
-			    v = expand[v] ? nm[e.target.name] : nm[v];
-			    var i = (u<v ? u+"|"+v : v+"|"+u),
-			        l = lm[i] || (lm[i] = {source:u, target:v, size:0});
-			    l.size += 1;
-			  }
-			  for (i in lm) { links.push(lm[i]); }
-
-			  return {nodes: nodes, links: links};
+			return {nodes: nodes, links: links};
 			}
 
 			function convexHulls(nodes, index, offset) {
-			  var hulls = {};
+				var hulls = {};
 
-			  // create point sets
-			  for (var k=0; k<nodes.length; ++k) {
-			    var n = nodes[k];
-			    if (n.size) continue;
-			    var i = index(n),
-			        l = hulls[i] || (hulls[i] = []);
-			    l.push([n.x-offset, n.y-offset]);
-			    l.push([n.x-offset, n.y+offset]);
-			    l.push([n.x+offset, n.y-offset]);
-			    l.push([n.x+offset, n.y+offset]);
-			  }
+				// create point sets
+				for (var k=0; k<nodes.length; ++k) {
+					var n = nodes[k];
+					if (n.size) continue;
+					var i = index(n),
+					l = hulls[i] || (hulls[i] = []);
+					l.push([n.x-offset, n.y-offset]);
+					l.push([n.x-offset, n.y+offset]);
+					l.push([n.x+offset, n.y-offset]);
+					l.push([n.x+offset, n.y+offset]);
+				}
 
-			  // create convex hulls
-			  var hullset = [];
-			  for (i in hulls) {
-			    hullset.push({group: i, path: d3.geom.hull(hulls[i])});
-			  }
+				// create convex hulls
+				var hullset = [];
+				for (i in hulls) {
+					hullset.push({group: i, path: d3.geom.hull(hulls[i])});
+				}
 
-			  return hullset;
+				return hullset;
 			}
 
 			function drawCluster(d) {
-			  return curve(d.path); // 0.8
+				return curve(d.path); // 0.8
 			}
 
 			// --------------------------------------------------------
@@ -491,6 +493,6 @@
 			        .attr("cy", function(d) { return d.y; });
 			  });
 			}
-		</script> -->
+		</script>
 	</body>
 </html>
