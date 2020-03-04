@@ -5,38 +5,37 @@
     <title>Clustered Network Force Layout</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://d3js.org/d3.v2.js"></script>
     
-    <style>
-      .dropdown-submenu {
-      position: relative;
-      }
-      .dropdown-submenu .dropdown-menu {
-        top: 0;
-        left: 100%;
-        margin-top: -1px;
-      }
-    </style>
-    <style>
-      .node {
-        cursor: pointer;
-        stroke: #3182bd;
-        stroke-width: 1.5px;
-      }
+    <script src="https://d3js.org/d3.v2.js"></script>
 
-      .link {
-        fill: none;
-        stroke: #9ecae1;
-        stroke-width: 1.5px;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style_graph.css">
+    <link rel="stylesheet" type="text/css" href="style_slider.css">
+    <link rel="stylesheet" type="text/css" href="style)dropdown.css">
   </head>
+
+
   <body>
+
+    <!-- BUTTON -->
+    <p id="button_demo">ELEMENT_X</p>
+    <button type="button" onclick="myFunction()">Button test</button>
+    <script src="button.js"></script> 
+
+
+    <!-- SLIDER -->
+    <div class="slidecontainer">
+      <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+      <p>Value: <span id="slider_demo"></span></p>
+    </div>
+    <script src="slider.js"></script>
+
+
+
+
     <div class="container">
-      <h2>Dropdown</h2>                                        
+      <!-- <h2>Dropdown</h2>                                         -->
         <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select date
         <span class="caret"></span></button>
@@ -107,8 +106,7 @@
       });
     </script>
 
-    <script src="//d3js.org/d3.v3.min.js"></script>
-    <script src="zoom_and_expand.js"></script>
+    <!-- <script src="zoom_and_expand.js"></script> -->
 		<script src="expanding.js"></script>
 		<!-- <script src="heatmap.js"></script> -->
 	</body>
