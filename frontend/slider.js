@@ -1,7 +1,7 @@
-var slider = document.getElementById("myRange");
+var slider_single = document.getElementById("myRange");
 var output = document.getElementById("slider_demo");
-output.innerHTML = slider.value;
+output.innerHTML = slider_single.value;
 
-slider.oninput = function() {
+slider_single.oninput = function() {
   output.innerHTML = this.value;
-}	
+}

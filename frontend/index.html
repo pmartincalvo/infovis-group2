@@ -4,38 +4,62 @@
     <meta charset="utf-8">
     <title>Clustered Network Force Layout</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- BOOTSTRAP -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- JQUIRY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- D3 -->
     <script src="https://d3js.org/d3.v2.js"></script>
 
+    <!-- OTHER STYLES -->
     <link rel="stylesheet" type="text/css" href="style_graph.css">
     <link rel="stylesheet" type="text/css" href="style_slider.css">
-    <link rel="stylesheet" type="text/css" href="style)dropdown.css">
+    <link rel="stylesheet" type="text/css" href="style_dropdown.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <!-- TIME RANGE SLIDER -->
+    <script src="double_slider.js"></script>
   </head>
 
 
   <body>
-
     <!-- BUTTON -->
     <p id="button_demo">ELEMENT_X</p>
     <button type="button" onclick="myFunction()">Button test</button>
     <script src="button.js"></script> 
+    <br/><br/>
+
+    <!-- GRAPH -->
+    <!-- <script src="zoom_and_expand.js"></script> -->
+    <script src="expanding.js"></script>
+    <!-- <script src="heatmap.js"></script> -->
 
 
-    <!-- SLIDER -->
-    <div class="slidecontainer">
-      <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+    <!-- SINGLE SLIDER -->
+    <!-- <div class="slidecontainer">
+      <input type="range" min="1" max="100" value="50" class="slider_single" id="myRange">
       <p>Value: <span id="slider_demo"></span></p>
     </div>
     <script src="slider.js"></script>
+ -->
+
+    <!-- DOUBLE SLIDER -->
+    <p>
+      <label for="amount">Time range:</label>
+      <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+    </p>
+    <div id="slider-range"></div>
 
 
-
-
-    <div class="container">
-      <!-- <h2>Dropdown</h2>                                         -->
+    <!-- DROPDOWN -->
+    <!-- <div class="container">                                    
         <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select date
         <span class="caret"></span></button>
@@ -104,10 +128,6 @@
           e.preventDefault();
         });
       });
-    </script>
-
-    <!-- <script src="zoom_and_expand.js"></script> -->
-		<script src="expanding.js"></script>
-		<!-- <script src="heatmap.js"></script> -->
+    </script> -->
 	</body>
 </html>
