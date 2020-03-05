@@ -9,10 +9,6 @@ $( function doubleSlider() {
     }
   });
   $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-    " - $" + $( "#slider-range" ).slider( "values", 1 ) ).change(function(){
-    // var myVar = $(this).val();
-    var myVar = 123
-    document.getElementById("myText").innerHTML = myVar;
-    // alert(myVar);
-  });
+    " - $" + $( "#slider-range" ).slider( "values", 1 ) )
 });
+
