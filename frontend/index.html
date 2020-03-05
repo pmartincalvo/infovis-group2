@@ -29,7 +29,15 @@
   </head>
 
 
-  <body>
+  <body onload="doubleSlider()">
+
+    <h1>
+      the value for number is:
+      <script type="text/javascript">
+        document.write(myVar)
+      </script>
+    </h1>
+
     <!-- BUTTON -->
     <p id="button_demo">ELEMENT_X</p>
     <button type="button" onclick="myFunction()">Button test</button>
@@ -39,7 +47,7 @@
     <!-- GRAPH -->
     <!-- <script src="zoom_and_expand.js"></script> -->
     <script src="expanding.js"></script>
-    <!-- <script src="heatmap.js"></script> -->
+    <script src="heatmap.js"></script>
 
 
     <!-- SINGLE SLIDER -->
@@ -51,11 +59,12 @@
  -->
 
     <!-- DOUBLE SLIDER -->
-    <p>
-      <label for="amount">Time range:</label>
-      <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-    </p>
     <div id="slider-range"></div>
+    <p>
+      <label class="slider_double_text" for="amount">Time range:</label>
+      <input type="text" id="amount" class="slider_double_timetext" readonly>
+      <span id="myText"></span>
+    </p>
 
 
     <!-- DROPDOWN -->

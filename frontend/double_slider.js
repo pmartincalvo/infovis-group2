@@ -1,13 +1,18 @@
-$( function() {
+$( function doubleSlider() { 
   $( "#slider-range" ).slider({
     range: true,
     min: 0,
     max: 500,
-    values: [ 75, 300 ],
+    values: [75, 300],
     slide: function( event, ui ) {
-      $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      $( "#amount" ).val( "$" + ui.values[0] + " - $" + ui.values[1] );
     }
   });
   $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-    " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-} );
+    " - $" + $( "#slider-range" ).slider( "values", 1 ) ).change(function(){
+    // var myVar = $(this).val();
+    var myVar = 123
+    document.getElementById("myText").innerHTML = myVar;
+    // alert(myVar);
+  });
+});
