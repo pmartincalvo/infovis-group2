@@ -11,6 +11,7 @@ def create_app(config):
     app = Flask(__name__)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = config.SQLALCHEMY_DATABASE_URI
+    app.config["ENV"] = config.ENV
     db.init_app(app)
 
     app.config["CORS_HEADERS"] = "Content-type"
@@ -18,7 +19,7 @@ def create_app(config):
 
     cache.init_app(app)
 
-    if config.PROFILE:
+    if config.ENV == "DEV" and config.PROFILE:
         app.wsgi_app = ProfilerMiddleware(app.wsgi_app, restrictions=[30], profile_dir="")
 
 

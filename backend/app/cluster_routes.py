@@ -1,12 +1,14 @@
 import datetime
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, current_app
 from flask_cors import cross_origin
 
-from app.database import db
-from app.models import Subreddit, Link
 from app.cache import cache
-from app.cluster_service import clustering_request_input_validator, generate_clusters
+from app.cluster_service import (
+    clustering_request_input_validator,
+    clustering_request_output_validator,
+    generate_clustered_networks,
+)
 
 clusters = Blueprint("clusters", __name__, url_prefix="/cluster")
 
@@ -29,18 +31,17 @@ def get_cluster():
         clustering_parameters
     )
 
-    clusters, metadata = generate_clusters(clustering_parameters)
+    networks, dendrogram, metadata = generate_clustered_networks(clustering_parameters)
 
-    return (
-        {
-            "success": True,
-            "message": None,
-            "clusters": clusters,
-            "metadata": {
-                "subreddit_count": metadata["subreddit_count"],
-                "link_count": metadata["link_count"],
-                "cluster_count": metadata["cluster_count"],
-            },
-        },
-        200,
-    )
+    response_body = {
+        "success": True,
+        "message": "Clustering was successful.",
+        "networks": networks,
+        "dendrogram": dendrogram,
+        "metadata": metadata,
+    }
+
+    if current_app.config["ENV"] == "DEV" and not clustering_request_output_validator.validate(response_body):
+        raise Exception(f"Request output breaks the contract. {clustering_request_output_validator.errors}")
+
+    return response_body, 200
