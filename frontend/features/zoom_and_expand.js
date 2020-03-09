@@ -1,10 +1,10 @@
-      var width = 960,
+var width = 1100,
           height = 500,
           root;
 
-      var force = d3.layout.force()
-          .size([width, height])
-          .on("tick", tick);
+      // var force = d3.layout.force()
+      //     .size([width, height])
+      //     .on("tick", tick);
 
       var svg = d3.select("body").append("svg")
           .attr("width", width)
@@ -21,154 +21,100 @@
         // .call(zoom) // delete this line to disable free zooming
         .call(zoom.event);
 
-      // d3.json("test.json", function(error, json) {
-      //   if (error) throw error;
 
-      //   root = json;        
-      //   console.log(root);
-      //   update();
-      // });
 
-      d3.json("untitled.json", function(error, json_new) {
+      d3.json("output_example.json", function(error, json) {
         if (error) throw error;
 
-        network = json_new;        
+        network = json;        
         console.log(network);
+        var layer0 = network.dendrogram[2];
+        // console.log(layer0);
+        edges_initial = network.networks[2].edges;
+        // console.log(edges);
+        nodes_initial = network.networks[2].nodes;
+        // console.log(nodes);
+
+
         // update();
 
-
-        var edges = [];
-        network.edges.forEach(function(e) { 
-          var sourceNode = network.nodes.filter(function(n) { return n.id === e.origin_node_id; })[0],
-              targetNode = network.nodes.filter(function(n) { return n.id === e.destination_node_id; })[0];
-          edges.push({origin_node_id: sourceNode, destination_node_id: targetNode, value: e.Value});
-        });
-
-        // var nodes = network.nodes;
-        // var links = network.edges;
-
-        console.log(edges);
-
-        network.edges.forEach(function(link, index, list) {
-        if (typeof network.edges[edges.origin_node_id] === 'undefined') {
-            console.log('undefined source', edges);
-        }
-        if (typeof network.edges[edges.destination_node_id] === 'undefined') {
-            console.log('undefined target', link);
-        }}
-
-        // force
-        //     .nodes(network.nodes)
-        //     .links(edges)
-        //     .start();
+      var hash_lookup = [];
+      // make it so we can lookup nodes in O(1):
+      nodes_initial.forEach(function(d, i) {
+        hash_lookup[d.id] = d;
       });
-
-      function update() {
-
-        // var nodes = flatten(root),
-        //     links = d3.layout.tree().links(nodes);
-
-        // Restart the force layout.
-        force
-            .nodes(nodes)
-            .links(links)
-            .start();
-
-        // Update the links…
-        link = link.data(links, function(d) { return d.target.id; });
-
-        // Exit any old links.
-        link.exit().remove();
-
-        // Enter any new links.
-        link.enter().insert("line", ".node")
-            .attr("class", "link")
-            .attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
-
-        // Update the nodes…
-        node = node.data(nodes, function(d) { return d.id; }).style("fill", color);
-
-        // Exit any old nodes.
-        node.exit().remove();
-
-        // Enter any new nodes.
-        node.enter().append("circle")
-            .attr("class", "node")
-            .attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; })
-            .attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; })
-            .style("fill", color)
-            .on("click", click)
-            .call(force.drag);
-      }
-
-      function tick() {
-        link.attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
-
-        node.attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; });
-      }
-
-      // Color leaf nodes orange, and packages white or blue.
-      function color(d) {
-        return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
-      }
-
-      // Toggle children on click.
-      function click(d) {
-        var bbox = this.getBBox(),
-            bounds = [[bbox.x, bbox.y],[bbox.x + bbox.width, bbox.y + bbox.height]];
-            console.log(bounds);
-            // var dx = bounds[1][0] - bounds[0][0],
-            // dy = bounds[1][1] - bounds[0][1],
-            // x = (bounds[0][0] + bounds[1][0]) / 2,
-            // y = (bounds[0][1] + bounds[1][1]) / 2,
-            // scale = Math.max(1, Math.min(3, 0.9 / Math.max(dx / width, dy / height))),
-            // translate = [width / 2 , height / 2 ];
-
-        if (!d3.event.defaultPrevented) {
-          if (d.children) {
-            d._children = d.children;
-            d.children = null;
-
-          } else {
-            d.children = d._children;
-            d._children = null;
-            console.log(d3.select(this).attr("cx"));
-            console.log(d3.select(this).attr("cy"));
-            // svg.transition()
-            //     .duration(750)
-            //     .call(zoom.translate(translate).scale(2).event);
-          }
-          update();
-        }
-      }
-
-      // Returns a list of all nodes under the root.
-      function flatten(root) {
-        var nodes = [], i = 0;
-
-        function recurse(node) {
-          if (node.children) node.children.forEach(recurse);
-          if (!node.id) node.id = ++i;
-          nodes.push(node);
-        }
-
-        recurse(root);
-        return nodes;
-      }
-
-      function readlink(root){
-        var links = [], i =0;
+      // console.log(hash_lookup);
 
 
-      }
+      edges_initial.forEach(function(d, i) {
+        d.source = hash_lookup[d.origin_node_id];
+        d.target = hash_lookup[d.destination_node_id];
+      });
+      // console.log(edges);
+
+      var edges_new = [];
+      edges_initial.forEach(function(e) {
+        edges_new.push({
+          source: e.source,
+          target: e.target
+        });
+      });
+      // console.log(edges_new);
+
+      // update();
+      // force
+      //     .nodes(hash_lookup)
+      //     .links(edges_new)
+      //     .start();
+
+    var force = d3.layout.force()
+      .nodes(hash_lookup) //指定节点数组
+      .links(edges_new) //指定连线数组
+      .size([width,height]) //指定作用域范围
+      .linkDistance(150) //指定连线长度
+      .charge([-400]); //相互之间的作用力
+
+      force.start(); 
+
+      console.log(hash_lookup);
+console.log(edges_new);
+
+
+      var svg_edges = svg.selectAll("line")
+        .data(edges_new)
+        .enter()
+        .append("line")
+        .style("stroke","#ccc")
+        .style("stroke-width",1);
+
+      var color = d3.scale.category20();
+
+      //添加节点 
+      var svg_nodes = svg.selectAll("circle")
+        .data(hash_lookup)
+        .enter()
+        .append("circle")
+        .attr("r",10)
+        .style("fill",function(d,i){
+          return color(i);
+      })
+      .call(force.drag);  //使得节点能够拖动
+
+      force.on("tick", function(){  //对于每一个时间间隔
+    
+       //更新连线坐标
+       svg_edges.attr("x1",function(d){ return d.source.x; })
+          .attr("y1",function(d){ return d.source.y; })
+          .attr("x2",function(d){ return d.target.x; })
+          .attr("y2",function(d){ return d.target.y; });
+       
+       //更新节点坐标
+       svg_nodes.attr("cx",function(d){ return d.x; })
+          .attr("cy",function(d){ return d.y; });
+
+    });
+
+      });
 
 
       function zoomed() {
@@ -176,5 +122,3 @@
         svg.style("stroke-width", 1.5 / d3.event.scale + "px");
         svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
       } 
-
-</script>
