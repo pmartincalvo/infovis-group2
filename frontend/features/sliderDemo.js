@@ -96,7 +96,7 @@
 			this._elements.options = $("<dl />").appendTo(this._elements.optionsZone);
 
 			// this._createBoundsOptions();
-			this._createRangeOptions();
+			// this._createRangeOptions();
 			// this._createStepOption();
 			// this._createWheelModeOption();
 			// this._createWheelSpeedOption();

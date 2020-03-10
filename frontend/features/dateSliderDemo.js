@@ -100,10 +100,10 @@
 		},
 
 		_fillMinSelect: function(select){
-			this._addOption(select, "false");
+			// this._addOption(select, "false");
 			this._addOption(select, "4 weeks", '{"days": 28}');
-			this._addOption(select, "8 weeks", '{"days": 54}');
-			this._addOption(select, "16 weeks", '{"days": 108}');
+			// this._addOption(select, "8 weeks", '{"days": 54}');
+			// this._addOption(select, "16 weeks", '{"days": 108}');
 		},
 
 		_fillMaxSelect: function(select){
