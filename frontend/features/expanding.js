@@ -1,38 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Clustered Network</title>
-    <script src="https://d3js.org/d3.v2.js"></script>
-
-    <style type="text/css">
-svg {
-  border: 1px solid #ccc;
-}
-body {
-  font: 10px sans-serif;
-}
-circle.node {
-  fill: lightsteelblue;
-  stroke: #555;
-  stroke-width: 3px;
-}
-circle.leaf {
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
-path.hull {
-  fill: lightsteelblue;
-  fill-opacity: 0.3;
-}
-line.link {
-  stroke: #333;
-  stroke-opacity: 0.5;
-  pointer-events: none;
-}
-    </style>
-  </head>
-  <body>
-    <script type="text/javascript">
 var width = 960,     // svg width
     height = 600,     // svg height
     dr = 4,      // default point radius
@@ -62,112 +27,114 @@ function getGroup(n) { return n.group; }
 
 // constructs the network to visualize
 function network(data, prev, index, expand) {
-  expand = expand || {};
-  var gm = {},    // group map
-      nm = {},    // node map
-      lm = {},    // link map
-      gn = {},    // previous group nodes
-      gc = {},    // previous group centroids
-      nodes = [], // output nodes
-      links = []; // output links
+	expand = expand || {};
+	var gm = {},    // group map
+	nm = {},    // node map
+	lm = {},    // link map
+	gn = {},    // previous group nodes
+	gc = {},    // previous group centroids
+	nodes = [], // output nodes
+	links = []; // output links
 
-  // process previous nodes for reuse or centroid calculation
-  if (prev) {
-    prev.nodes.forEach(function(n) {
-      var i = index(n), o;
-      if (n.size > 0) {
-        gn[i] = n;
-        n.size = 0;
-      } else {
-        o = gc[i] || (gc[i] = {x:0,y:0,count:0});
-        o.x += n.x;
-        o.y += n.y;
-        o.count += 1;
-      }
-    });
-  }
+	// process previous nodes for reuse or centroid calculation
+	if (prev) {
+		prev.nodes.forEach(function(n) {
+			var i = index(n), o;
+			if (n.size > 0) {
+			gn[i] = n;
+			n.size = 0;
+			} else {
+			o = gc[i] || (gc[i] = {x:0,y:0,count:0});
+			o.x += n.x;
+			o.y += n.y;
+			o.count += 1;
+			}
+		});
+	}
 
-  // determine nodes
-  for (var k=0; k<data.nodes.length; ++k) {
-    var n = data.nodes[k],
-        i = index(n),
-        l = gm[i] || (gm[i]=gn[i]) || (gm[i]={group:i, size:0, nodes:[]});
+	// determine nodes
+	for (var k=0; k<data.nodes.length; ++k) {
+		var n = data.nodes[k],
+	    i = index(n),
+	    l = gm[i] || (gm[i]=gn[i]) || (gm[i]={group:i, size:0, nodes:[]});
 
-    if (expand[i]) {
-      // the node should be directly visible
-      nm[n.name] = nodes.length;
-      nodes.push(n);
-      if (gn[i]) {
-        // place new nodes at cluster location (plus jitter)
-        n.x = gn[i].x + Math.random();
-        n.y = gn[i].y + Math.random();
-      }
-    } else {
-      // the node is part of a collapsed cluster
-      if (l.size == 0) {
-        // if new cluster, add to set and position at centroid of leaf nodes
-        nm[i] = nodes.length;
-        nodes.push(l);
-        if (gc[i]) {
-          l.x = gc[i].x / gc[i].count;
-          l.y = gc[i].y / gc[i].count;
-        }
-      }
-      l.nodes.push(n);
-    }
-  // always count group size as we also use it to tweak the force graph strengths/distances
-    l.size += 1;
-  n.group_data = l;
-  }
+		if (expand[i]) {
+			// the node should be directly visible
+			nm[n.name] = nodes.length;
+			nodes.push(n);
+			if (gn[i]) {
+				// place new nodes at cluster location (plus jitter)
+				n.x = gn[i].x + Math.random();
+				n.y = gn[i].y + Math.random();
+			}
+		} else {
+			// the node is part of a collapsed cluster
+			if (l.size == 0) {
+				// if new cluster, add to set and position at centroid of leaf nodes
+				nm[i] = nodes.length;
+				nodes.push(l);
+				if (gc[i]) {
+					l.x = gc[i].x / gc[i].count;
+					l.y = gc[i].y / gc[i].count;
+				}
+			}
+		l.nodes.push(n);
+		}
+		// always count group size as we also use it to tweak the force graph strengths/distances
+		l.size += 1;
+		n.group_data = l;
+	}
+	for (i in gm) { gm[i].link_count = 0; 
+}
 
-  for (i in gm) { gm[i].link_count = 0; }
+// determine links
+for (k=0; k<data.links.length; ++k) {
+	var e = data.links[k],
+	    u = index(e.source),
+	    v = index(e.target);
+	if (u != v) {
+		gm[u].link_count++;
+		gm[v].link_count++;
+	}
+	u = expand[u] ? nm[e.source.name] : nm[u];
+	v = expand[v] ? nm[e.target.name] : nm[v];
+	var i = (u<v ? u+"|"+v : v+"|"+u),
+	l = lm[i] || (lm[i] = {source:u, target:v, size:0});
+	l.size += 1;
+}
+for (i in lm) { 
+	links.push(lm[i]); 
+}
 
-  // determine links
-  for (k=0; k<data.links.length; ++k) {
-    var e = data.links[k],
-        u = index(e.source),
-        v = index(e.target);
-  if (u != v) {
-    gm[u].link_count++;
-    gm[v].link_count++;
-  }
-    u = expand[u] ? nm[e.source.name] : nm[u];
-    v = expand[v] ? nm[e.target.name] : nm[v];
-    var i = (u<v ? u+"|"+v : v+"|"+u),
-        l = lm[i] || (lm[i] = {source:u, target:v, size:0});
-    l.size += 1;
-  }
-  for (i in lm) { links.push(lm[i]); }
-
-  return {nodes: nodes, links: links};
+return {nodes: nodes, links: links};
 }
 
 function convexHulls(nodes, index, offset) {
-  var hulls = {};
+	var hulls = {};
 
-  // create point sets
-  for (var k=0; k<nodes.length; ++k) {
-    var n = nodes[k];
-    if (n.size) continue;
-    var i = index(n),
-        l = hulls[i] || (hulls[i] = []);
-    l.push([n.x-offset, n.y-offset]);
-    l.push([n.x-offset, n.y+offset]);
-    l.push([n.x+offset, n.y-offset]);
-    l.push([n.x+offset, n.y+offset]);
-  }
+	// create point sets
+	for (var k=0; k<nodes.length; ++k) {
+		var n = nodes[k];
+		if (n.size) continue;
+		var i = index(n),
+		l = hulls[i] || (hulls[i] = []);
+		l.push([n.x-offset, n.y-offset]);
+		l.push([n.x-offset, n.y+offset]);
+		l.push([n.x+offset, n.y-offset]);
+		l.push([n.x+offset, n.y+offset]);
+	}
 
-  // create convex hulls
-  var hullset = [];
-  for (i in hulls) {
-    hullset.push({group: i, path: d3.geom.hull(hulls[i])});
-  }
+	// create convex hulls
+	var hullset = [];
+	for (i in hulls) {
+		hullset.push({group: i, path: d3.geom.hull(hulls[i])});
+	}
 
-  return hullset;
+	return hullset;
 }
 
 function drawCluster(d) {
-  return curve(d.path); // 0.8
+	return curve(d.path); // 0.8
 }
 
 // --------------------------------------------------------
@@ -178,7 +145,7 @@ var vis = body.append("svg")
    .attr("width", width)
    .attr("height", height);
 
-d3.json("miserables.json", function(json) {
+d3.json("../data/miserables.json", function(json) {
   data = json;
   for (var i=0; i<data.links.length; ++i) {
     o = data.links[i];
@@ -289,7 +256,3 @@ console.log("node click", d, arguments, this, expand[d.group]);
         .attr("cy", function(d) { return d.y; });
   });
 }
-
-    </script>
-  </body>
-</html>
