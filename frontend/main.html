@@ -5,10 +5,6 @@
     <title>Clustered Network Force Layout</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
- <!--    include require.js -->
-     <script src=" https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js"></script>
-
-
     <!-- BOOTSTRAP -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -19,27 +15,10 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <!-- D3 -->
-    <script src="https://d3js.org/d3.v2.js"></script>
-
     <!--  heatmap version -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
-
-
-    <!-- OTHER STYLES -->
-    <link rel="stylesheet" type="text/css" href="css/style_graph.css">
-    <link rel="stylesheet" type="text/css" href="css/style_slider.css">
-    <link rel="stylesheet" type="text/css" href="css/style_dropdown.css">
-<!--     <link rel="stylesheet" href="/resources/demos/style.css"> -->
-
-    <!-- TIME RANGE SLIDER -->
-    <script src="double_slider.js"></script>
     <style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 .topnav {
   overflow: hidden;
@@ -74,8 +53,8 @@ body {
 <!-- <body style="background-color:#e5f5e0;"> -->
     <div class="topnav">
   <ul>
-    <a href="main.html">Home</a>
-    <!-- <a href="visualisations.html">Data Visualisation</a> -->
+    <a href="index.html">Home</a>
+    <a href="main.html">Heatmap</a>
     <li style="float:right"><a class="active" href="https://github.com/pmartincalvo/infovis-group2">Our Git</a></li>
 </ul>
 
@@ -87,108 +66,11 @@ body {
      </div>
     
 
-    <!-- BUTTON -->
-    <p id="button_demo">ELEMENT_X</p>
-    <button type="button" onclick="myFunction()">Button test</button>
-    <script src="button.js"></script> 
-    <br/><br/>
-
-    <!-- GRAPH -->
-<!--     <script src="zoom_and_expand.js"></script> -->
-    <script src="expanding.js"></script>
-
-    <!-- heatmap -->
+    <!-- include heatmap -->
     <div id="my_dataviz"></div>
 
-    <!-- SINGLE SLIDER -->
-    <!-- <div class="slidecontainer">
-      <input type="range" min="1" max="100" value="50" class="slider_single" id="myRange">
-      <p>Value: <span id="slider_demo"></span></p>
-    </div>
-    <script src="slider.js"></script>-->
- 
-
-    <!-- DOUBLE SLIDER -->
-    <div id="slider-range"></div>
-    <p>
-      <label class="slider_double_text" for="amount">Time range:</label>
-      <input type="text" id="amount" class="slider_double_timetext" readonly>
-      <span id="myText"></span>
-    </p>
-
-    <script src="heatmap.js"></script>
+    <script src="features/heatmap.js"></script>
 
 
-    <!-- DROPDOWN -->
-    <!-- <div class="container">                                    
-        <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select date
-        <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li class="dropdown-submenu">
-            <li class="dropdown-submenu">
-              <a class="test" href="#">Year 1 <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">January</a></li>
-                <li><a href="#">February</a></li>
-                <li><a href="#">March</a></li>
-                <li><a href="#">April</a></li>
-                <li><a href="#">May</a></li>
-                <li><a href="#">June</a></li>
-                <li><a href="#">July</a></li>
-                <li><a href="#">August</a></li>
-                <li><a href="#">September</a></li>
-                <li><a href="#">October</a></li>
-                <li><a href="#">November</a></li>
-                <li><a href="#">December</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a class="test" href="#">Year 2 <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">January</a></li>
-                <li><a href="#">February</a></li>
-                <li><a href="#">March</a></li>
-                <li><a href="#">April</a></li>
-                <li><a href="#">May</a></li>
-                <li><a href="#">June</a></li>
-                <li><a href="#">July</a></li>
-                <li><a href="#">August</a></li>
-                <li><a href="#">September</a></li>
-                <li><a href="#">October</a></li>
-                <li><a href="#">November</a></li>
-                <li><a href="#">December</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a class="test" href="#">Year 3 <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">January</a></li>
-                <li><a href="#">February</a></li>
-                <li><a href="#">March</a></li>
-                <li><a href="#">April</a></li>
-                <li><a href="#">May</a></li>
-                <li><a href="#">June</a></li>
-                <li><a href="#">July</a></li>
-                <li><a href="#">August</a></li>
-                <li><a href="#">September</a></li>
-                <li><a href="#">October</a></li>
-                <li><a href="#">November</a></li>
-                <li><a href="#">December</a></li>
-              </ul>
-            </li>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <script>
-      $(document).ready(function(){
-        $('.dropdown-submenu a.test').on("click", function(e){
-          $(this).next('ul').toggle();
-          e.stopPropagation();
-          e.preventDefault();
-        });
-      });
-    </script> -->
 	</body>
 </html>
