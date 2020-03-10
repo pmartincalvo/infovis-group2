@@ -1,120 +1,4 @@
-<!DOCTYPE html>
-    <meta charset="utf-8">
-      <title>Clustered Network Force Layout</title>
-      <!-- To support the dropdown -->
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-          <style>
-            .dropdown-submenu {
-            position: relative;
-            }
-            .dropdown-submenu .dropdown-menu {
-              top: 0;
-              left: 100%;
-              margin-top: -1px;
-            }
-          </style>
 
-      <style>
-
-      .node {
-        cursor: pointer;
-        stroke: #3182bd;
-        stroke-width: 1.5px;
-      }
-
-      .link {
-        fill: none;
-        stroke: #9ecae1;
-        stroke-width: 1.5px;
-      }
-
-      </style>
-      <body>
-      <!-- Dropdown menue to select date -->
-            <div class="container">
-          <h2>Dropdown</h2>                                        
-            <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select date
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <!-- <li><a tabindex="-1" href="#">HTML</a></li>
-                <li><a tabindex="-1" href="#">CSS</a></li> -->
-                <li class="dropdown-submenu">
-            <!--         <a class="test" tabindex="-1" href="#">New dropdown <span class="caret"></span></a>
-                  <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                  <li><a tabindex="-1" href="#">2nd level dropdown</a></li> -->
-                  <li class="dropdown-submenu">
-                      <a class="test" href="#">Year 1 <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                    <li><a href="#">January</a></li>
-                    <li><a href="#">February</a></li>
-                    <li><a href="#">March</a></li>
-                    <li><a href="#">April</a></li>
-                    <li><a href="#">May</a></li>
-                    <li><a href="#">June</a></li>
-                    <li><a href="#">July</a></li>
-                    <li><a href="#">August</a></li>
-                    <li><a href="#">September</a></li>
-                    <li><a href="#">October</a></li>
-                    <li><a href="#">November</a></li>
-                    <li><a href="#">December</a></li>
-                      </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                      <a class="test" href="#">Year 2 <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                    <li><a href="#">January</a></li>
-                    <li><a href="#">February</a></li>
-                    <li><a href="#">March</a></li>
-                    <li><a href="#">April</a></li>
-                    <li><a href="#">May</a></li>
-                    <li><a href="#">June</a></li>
-                    <li><a href="#">July</a></li>
-                    <li><a href="#">August</a></li>
-                    <li><a href="#">September</a></li>
-                    <li><a href="#">October</a></li>
-                    <li><a href="#">November</a></li>
-                    <li><a href="#">December</a></li>
-                      </ul>
-                  </li>
-                <li class="dropdown-submenu">
-                    <a class="test" href="#">Year 3 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                  <li><a href="#">January</a></li>
-                  <li><a href="#">February</a></li>
-                  <li><a href="#">March</a></li>
-                  <li><a href="#">April</a></li>
-                  <li><a href="#">May</a></li>
-                  <li><a href="#">June</a></li>
-                  <li><a href="#">July</a></li>
-                  <li><a href="#">August</a></li>
-                  <li><a href="#">September</a></li>
-                  <li><a href="#">October</a></li>
-                  <li><a href="#">November</a></li>
-                  <li><a href="#">December</a></li>
-                    </ul>
-                </li>
-            </ul>
-            </div>
-          </div>
-          <script>
-            $(document).ready(function(){
-              $('.dropdown-submenu a.test').on("click", function(e){
-                $(this).next('ul').toggle();
-                e.stopPropagation();
-                e.preventDefault();
-              });
-            });
-          </script>
-
-
-      
-
-      <script src="//d3js.org/d3.v3.min.js"></script>
-      <script>
 
       var width = 1100,
           height = 500,
@@ -155,7 +39,7 @@
           node = svg.selectAll(".node");
 
       svg
-        // .call(zoom) // delete this line to disable free zooming
+        .call(zoom) // delete this line to disable free zooming
         .call(zoom.event);
 
 
@@ -282,4 +166,4 @@
         svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
       } 
 
-</script>
+
