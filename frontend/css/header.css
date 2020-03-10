@@ -843,10 +843,10 @@ background-color:#eee}.jumbotron .h1,.jumbotron h1{color:inherit}.jumbotron p{ma
 	font-size:21px;
 font-weight:200}.jumbotron>hr{border-top-color:#d5d5d5}.container .jumbotron,.container-fluid .jumbotron{padding-right:15px;
 	padding-left:15px;
-border-radius:6px}.jumbotron .container{max-width:100%}@media screen and (min-width:768px){.jumbotron{padding-top:48px;
+border-radius:6px}.jumbotron .container{max-width:100%}@media screen and (min-width:768px){.jumbotron{padding-top:0px;   
 	padding-bottom:48px}.container .jumbotron,.container-fluid .jumbotron{padding-right:60px;
 	padding-left:60px}.jumbotron .h1,.jumbotron h1{font-size:63px}}.thumbnail{display:block;
-	padding:4px;
+	padding:1px;
 margin-bottom:20px;
 line-height:1.42857143;
 background-color:#fff;
