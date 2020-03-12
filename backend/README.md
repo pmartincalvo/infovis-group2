@@ -4,12 +4,11 @@ This API connects to the reddit links database and enables cluster generation ba
 
 ## How to run
 
-
+1. Create a python virtual venv `python3 -m venv venv`.
+2. Jump in `. venv/bin/activate`
+3. Copy `.env-example` into a `.env` file and fill the required fields. DB fields should be coherent with where the DB is deployed. API port should be 5000.
+4. Run the entrypoint with `python3 run.py`.
 
 ## Dependencies
 
-* Docker
-
-OR
-*  Python 3.6+ and dependencies in requirements.txt if you don't want to use docker
-
+*  Python 3.6+ and dependencies in requirements.txt
