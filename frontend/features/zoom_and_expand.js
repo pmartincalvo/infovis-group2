@@ -14,7 +14,8 @@
           layer,
           node_total = [],
           link_total = [],
-          root;
+          root,
+          network;
 
       var curve = d3.svg.line()
         .interpolate("cardinal-closed")
@@ -22,7 +23,7 @@
 
       var fill = d3.scale.category20();
 
-      var svg = d3.select("body")
+      var svg = d3.select("#my-graph")
           .append("svg")
           .attr("width", width)
           .attr("height", height);
@@ -42,17 +43,30 @@
         // .call(zoom) // delete this line to disable free zooming
         .call(zoom.event);
 
+      function askForClusters(){
+        var payload = {
+            datetime_interval_start: minDate,
+            datetime_interval_end: maxDate,
+            selected_subreddits: []
+        };
+        console.log(JSON.stringify(payload));
 
-      d3.json("../data/output_example.json", function(error, json) {
-        if (error) throw error;
+        fetch("http://0.0.0.0:5000/cluster/",
+        {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        })
+        .then(response=>response.json())
+        .then(data=>{
+          update(data);
+        })
+      };
 
-        network = json;        
-        console.log(network);
-        update();
-      });
+
+      function update(network){
 
 
-      function update(){
         if (force) force.stop();
         svg.selectAll('.node').remove();
         svg.selectAll('.link').remove();
