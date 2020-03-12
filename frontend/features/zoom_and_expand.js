@@ -43,7 +43,7 @@
         .call(zoom.event);
 
 
-      d3.json("../data/output_example_reorg.json", function(error, json) {
+      d3.json("../data/output_example.json", function(error, json) {
         if (error) throw error;
 
         network = json;        
