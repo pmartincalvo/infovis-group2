@@ -17,7 +17,7 @@ clusters = Blueprint("clusters", __name__, url_prefix="/cluster")
 @cross_origin()
 def get_cluster():
     # Validate input
-    clustering_parameters = request.json
+    clustering_parameters = request.get_json(force=True)
     if not clustering_request_input_validator.validate(clustering_parameters):
         return (
             {
