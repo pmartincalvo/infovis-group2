@@ -10,7 +10,7 @@ from app.database import db
 from app.models import Link
 
 to_date = lambda datetime_string: datetime.strptime(
-    datetime_string, "%Y/%m/%d"  # TODO Define time format
+    datetime_string, "%Y-%m-%d"
 )
 CLUSTERING_REQUEST_INPUT_SCHEMA = {
     "datetime_interval_start": {
@@ -100,6 +100,7 @@ def generate_clustered_networks(clustering_parameters):
         )
 
     query = query.group_by(Link.source_subreddit_db_id, Link.target_subreddit_db_id)
+    query = query.having(func.count(Link.source_subreddit_db_id).label("weight") > 5)
 
     link_subset = query.all()
 
