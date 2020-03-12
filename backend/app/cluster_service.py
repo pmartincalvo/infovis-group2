@@ -10,7 +10,7 @@ from app.database import db
 from app.models import Link
 
 to_date = lambda datetime_string: datetime.strptime(
-    datetime_string, "%Y/%m/%d"  # TODO Define time format
+    datetime_string, "%Y-%m-%d"
 )
 CLUSTERING_REQUEST_INPUT_SCHEMA = {
     "datetime_interval_start": {
