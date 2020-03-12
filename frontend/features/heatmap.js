@@ -5,13 +5,13 @@ var margin = {top: 30, right: 30, bottom: 30, left: 30},
   height = 450 - margin.top - margin.bottom;
 
   //Read the data
-d3.json("mockdata.json", function(data) {
+d3.json("../data/mockdata.json", function(data) {
 
    for (var i = 0; i < data.length; i++) {
         var myGroups = (data[i].group)
         var myVars = (data[i].variable)
-        console.log(myGroups);
-        console.log(myVars);
+        // console.log(myGroups);
+        // console.log(myVars);
     }
 
   svg.selectAll()
@@ -20,8 +20,8 @@ d3.json("mockdata.json", function(data) {
       .append("rect")
       .attr("x", function(d) { return x(d.group) })
       .attr("y", function(d) { return y(d.variable) })
-      .attr("width", x.bandwidth() )
-      .attr("height", y.bandwidth() )
+      .attr("width", 200 )
+      .attr("height", 200 )
       .style("fill", function(d) { return myColor(d.value)} )
 
 })
@@ -36,8 +36,8 @@ var svg = d3.select("#my_dataviz")
         "translate(" + margin.left + "," + margin.top + ")");
 
 // Labels of row and columns
-// var myGroups = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-// var myVars = ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10"]
+var myGroups = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+var myVars = ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10"]
 
 // Build X scales and axis:
 var x = d3.scaleBand()
