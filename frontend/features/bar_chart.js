@@ -1,3 +1,4 @@
+
 function othername() {
   var subreddit = document.getElementById("subreddit_input").value;
   var topic = document.getElementById("topic_input").value;
@@ -29,9 +30,16 @@ function test(subreddit, topic) {
       .orient("left");
 
   var color = d3.scale.ordinal()
-      .range(["#CE403C","#AFC73A","#28886B", "6E319A", "#CE6F3C","#2FA237","#BF3855"]);
+      .range([
+        "#4BB579", // green
+        "#FED76A", // orange
+        "#9D47A6", // purple
+        "#F0FA68", // yellow
+        "#FE866A", // red
+        "#5563AE" // blue
+      ]);
 
-  var svg = d3.select('body').append("svg")
+  var svg = d3.select('#bar_chart').append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -63,7 +71,7 @@ function test(subreddit, topic) {
         .style('font-weight','bold')
         .text("Value");
 
-    svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');
+    svg.select('.y').transition().duration(300).delay(600).style('opacity','1');
 
     var slice = svg.selectAll(".slice")
         .data(data)
