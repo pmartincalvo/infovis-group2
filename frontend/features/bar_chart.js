@@ -39,6 +39,13 @@ function test(subreddit, topic) {
         "#5563AE" // blue
       ]);
 
+
+  var tooltip = d3.select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("visibility", "hidden")
+      .style("background", "#ffffff");
+
   var svg = d3.select('#bar_chart').append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -81,19 +88,26 @@ function test(subreddit, topic) {
 
     slice.selectAll("rect")
         .data(function(d) { return d.values; })
-    .enter().append("rect")
+        .enter().append("rect")
         .attr("width", x1.rangeBand())
         .attr("x", function(d) { return x1(d.LIWC); })
         .style("fill", function(d) { return color(d.LIWC) })
         .attr("y", function(d) { return y(0); })
         .attr("height", function(d) { return height - y(0); })
-        .on("mouseover", function(d) {
-            d3.select(this).style("fill", d3.rgb(color(d.LIWC)).darker(2));
+        .text(function(d) { return d.YEAR; })
+        .on("mouseover", function(d){
+          tooltip.text(d.LIWC+": average score of "+d.value)
+          tooltip.style("visibility", "visible")
+          d3.select(this).style("fill", d3.rgb(color(d.LIWC)).darker(2));
         })
-        .on("mouseout", function(d) {
-            d3.select(this).style("fill", color(d.LIWC));
+        .on("mousemove", function(){
+          tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+        })
+        .on("mouseout", function(d){
+          tooltip.style("visibility", "hidden");
+          d3.select(this).style("fill", color(d.LIWC));
         });
-
+        
     slice.selectAll("rect")
         .transition()
         .delay(function (d) {return Math.random()*1000;})

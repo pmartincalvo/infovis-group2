@@ -1,1 +1,1 @@
-[{"YEAR": "2016", "values": [{"value": 1.23, "LIWC": "Body"}, {"value": 0.17, "LIWC": "Health"}, {"value": 0.26, "LIWC": "Sexual"}, {"value": 0.09, "LIWC": "Relig"}, {"value": 0.09, "LIWC": "Death"}]}]
+[{"YEAR": "2016", "values": [{"value": 0.0315384615, "LIWC": "Body"}, {"value": 0.0043589744, "LIWC": "Health"}, {"value": 0.0066666667, "LIWC": "Sexual"}, {"value": 0.0023076923, "LIWC": "Relig"}, {"value": 0.0023076923, "LIWC": "Death"}]}]
