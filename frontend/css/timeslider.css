@@ -1,34 +1,31 @@
-/**
- * default development theme for jQRangeSlider
- * Using fam fam icon set from Mark James, http://www.famfamfam.com/lab/icons/silk/ (Creative Commons Attribution 2.5 License)
- */
-
 .ui-rangeSlider{
-	height:22px;
+	height:35px;
 }
 
-.ui-rangeSlider .ui-rangeSlider-innerBar{
-	height:16px;
-	margin:3px 6px;
-	background:#DDD;
+.ui-rangeSlider-innerBar{
+	height:20px;
+	margin-top:5px;
+	border: 2px solid #555555;
+	/*background:#E3DFDC;*/
 }
 
-.ui-rangeSlider .ui-rangeSlider-handle{
-	width:6px;
-	height:22px;
-	background:#AAA;
-	background:rgba(100,100,100, 0.3);
+.ui-rangeSlider-handle{
+	width:9px;
+	height:30px;
+	background:#555555;
+	border: 2px solid #555555;
+	border-radius: 2px;
 	cursor:col-resize;
 }
 
-.ui-rangeSlider .ui-rangeSlider-bar{
-	margin: 1px 0;
-	background:#CCC;
-	background:rgba(100,100,150, 0.2);
-	height:20px;
+.ui-rangeSlider-bar{
+	background:#FD8E3C;
+	border: 2px solid #555555;
+	height:25px;
 	cursor:move;
 	cursor:grab;
 	cursor: -moz-grab;
+	margin:2.5px;
 }
 
 .ui-rangeSlider .ui-rangeSlider-bar.ui-draggable-dragging{
@@ -38,58 +35,55 @@
 
 .ui-rangeSlider-arrow{
 	height:16px;
-	margin:2px 0;
+	/*margin:2px 0;*/
 	width:16px;
 	background-repeat:no-repeat;
 }
 
 .ui-rangeSlider-arrow.ui-rangeSlider-leftArrow{
-	background-image: url('icons-classic/resultset_previous.png');
-	background-position:center left;
+	width:9px;
+	height:30px;
+	background:#555555;
+	border: 2px solid #555555;
+	border-radius: 2px;
+	/*background-image: url('icons-classic/resultset_previous.png');*/
+	/*background-position:center left;*/
 }
 
 .ui-rangeSlider-arrow.ui-rangeSlider-rightArrow{
-	background-image: url('icons-classic/resultset_next.png');
-	background-position:center right;
-}
-
-.ui-rangeSlider-arrow-inner{
-	display: none;
-}
-
-.ui-rangeSlider-container{
-	height:22px;
-}
-
-.ui-rangeSlider-withArrows .ui-rangeSlider-container{
-	margin:0 11px;
-}
-
-.ui-rangeSlider-noArrow .ui-rangeSlider-container{
-	margin:0;
+	width:9px;
+	height:30px;
+	background:#555555;
+	border: 2px solid #555555;
+	border-radius: 2px;
+	/*background-image: url('icons-classic/resultset_next.png');*/
+	/*background-position:center right;*/
 }
 
 .ui-rangeSlider-label{
-	margin:0 2px 2px;
-	background-image:url('icons-classic/label.png');
-	background-position:bottom center;
-	background-repeat:no-repeat;
-  white-space: nowrap;
-  bottom:20px;
-  padding:3px 6px 7px;
-  cursor:col-resize;
+	border-radius: 6px;
+	border: 2px solid #555555;
+	text-align: center;
+	padding-top: 3px;
+	width:90px;
+	height:30px;
+	background:#FFFFFF;
+	bottom:40px;
+	cursor:col-resize;
 }
 
 .ui-rangeSlider-label-inner{
 	display:none;
 }
 
-/*
- * Edit slider
- */
-
 input.ui-editRangeSlider-inputValue{
 	width:3em;
 	vertical-align: middle;
 	text-align:center;
+}
+
+#my-time-slider {
+  margin: auto;
+  margin-top:20px;
+  width: 50%;
 }

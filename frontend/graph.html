@@ -6,13 +6,11 @@
 	    <title>Clustered Network Force Layout</title>
 
 	    <!-- STYLE -->
-		<link rel="stylesheet" id="themeCSS" href="css/classic.css"> 
+		<link rel="stylesheet" id="themeCSS" href="css/timeslider.css"> 
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/style_graph.css">
-	    <link rel="stylesheet" type="text/css" href="css/style_dropdown.css">
 	    <link rel="stylesheet" type="text/css" href="css/style_header.css">
     	<link rel="stylesheet" type="text/css" href="css/header.css">
-
 		
 		<!-- JQUERY -->
 		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -22,8 +20,8 @@
 		<!-- D3 -->
     	<!-- <script src="https://d3js.org/d3.v2.js"></script> -->
     	<script src="https://d3js.org/d3.v3.js"></script>
-    	<!-- heatmap -->
     	<!-- <script src="https://d3js.org/d3.v4.js"></script> -->
+    	<!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
 	</head>  
 
 	<body>
@@ -37,19 +35,19 @@
 	    	<li style="float:right"><a class="active" href="https://github.com/pmartincalvo/infovis-group2">Our Git</a></li>
 	    </div>
 
-	    <div class="jumbotron text-center">
+	    <!-- <div class="jumbotron text-center">
 	        <img src="logo.png" >
 	    	<div class="top"><h1>Identifying toxic subreddits</h1></div>
-	    </div>
+	    </div> -->
 
 		<!-- GRAPH -->
-	    <div id="my-graph" style="position:relative; left:20%; width:70%"> </div>
+	    <div id="my-graph"> </div>
 	    <script src="features/zoom_and_expand.js"></script>
 	    
 	    <br/><br/>
 
-	   	<!-- SLIDER -->
-	    <div id="my-time-slider" style="position:relative; left:25%; width:40%"> </div>
+	   	<!-- SLIDER -->	
+	    <div id="my-time-slider"> </div>
 		<script src="features/dateSliderDemo.js"></script>
 	</body>  
 </html>  
