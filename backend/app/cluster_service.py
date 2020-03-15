@@ -9,9 +9,7 @@ import community
 from app.database import db
 from app.models import Link
 
-to_date = lambda datetime_string: datetime.strptime(
-    datetime_string, "%Y-%m-%d"
-)
+to_date = lambda datetime_string: datetime.strptime(datetime_string, "%Y-%m-%d")
 CLUSTERING_REQUEST_INPUT_SCHEMA = {
     "datetime_interval_start": {
         "type": "datetime",
@@ -46,14 +44,14 @@ SENTIMENT_EDGE_SCHEMA = {
         "origin_node_id": {"type": "integer"},
         "destination_node_id": {"type": "integer"},
         "mean_sentiment": {"type": "float"},
-        "weight": {"type": "integer"}
+        "weight": {"type": "integer"},
     },
 }
 
 NETWORK_SCHEMA = {
     "nodes": {"type": "list", "schema": NODE_SCHEMA},
     "weight_edges": {"type": "list", "schema": WEIGHTED_EDGE_SCHEMA},
-    "sentiment_edges": {"type": "list", "schema": SENTIMENT_EDGE_SCHEMA}
+    "sentiment_edges": {"type": "list", "schema": SENTIMENT_EDGE_SCHEMA},
 }
 CLUSTERING_REQUEST_OUTPUT_SCHEMA = {
     "success": {"type": "boolean", "nullable": False},
@@ -119,15 +117,15 @@ def generate_clustered_networks(clustering_parameters):
     metadata["link_count"] = len(link_subset)
 
     # Cluster
-    network = links_to_network(link_subset)
-    metadata["subreddit_count"] = network.number_of_nodes()
-    clustered_networks, dendogram = compute_clustered_networks(network)
+    weight_network = links_to_weight_network(link_subset)
+    metadata["subreddit_count"] = weight_network.number_of_nodes()
+    clustered_networks, dendogram = compute_clustered_networks(weight_network)
     metadata["network_levels"] = len(clustered_networks)
 
     return clustered_networks, dendogram, metadata
 
 
-def links_to_network(links):
+def links_to_weight_network(links):
     network = networkx.Graph()
     for link in links:
         network.add_edge(
@@ -163,4 +161,4 @@ def network_to_custom_format(network):
     nodes = []
     for node in temp_nodes:
         nodes.append({"id": node, "name": ""})
-    return {"nodes": nodes, "edges": edges}
+    return {"nodes": nodes, "weight_edges": edges}
