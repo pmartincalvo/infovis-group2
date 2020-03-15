@@ -31,7 +31,7 @@ NODE_SCHEMA = {
     "type": "dict",
     "schema": {"id": {"type": "integer"}, "name": {"type": "string"}},
 }
-EDGE_SCHEMA = {
+WEIGHTED_EDGE_SCHEMA = {
     "type": "dict",
     "schema": {
         "origin_node_id": {"type": "integer"},
@@ -39,9 +39,21 @@ EDGE_SCHEMA = {
         "weight": {"type": "integer"},
     },
 }
+
+SENTIMENT_EDGE_SCHEMA = {
+    "type": "dict",
+    "schema": {
+        "origin_node_id": {"type": "integer"},
+        "destination_node_id": {"type": "integer"},
+        "mean_sentiment": {"type": "float"},
+        "weight": {"type": "integer"}
+    },
+}
+
 NETWORK_SCHEMA = {
     "nodes": {"type": "list", "schema": NODE_SCHEMA},
-    "edges": {"type": "list", "schema": EDGE_SCHEMA},
+    "weight_edges": {"type": "list", "schema": WEIGHTED_EDGE_SCHEMA},
+    "sentiment_edges": {"type": "list", "schema": SENTIMENT_EDGE_SCHEMA}
 }
 CLUSTERING_REQUEST_OUTPUT_SCHEMA = {
     "success": {"type": "boolean", "nullable": False},
