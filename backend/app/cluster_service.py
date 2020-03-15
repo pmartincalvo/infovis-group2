@@ -92,6 +92,7 @@ def generate_clustered_networks(clustering_parameters):
             Link.source_subreddit_db_id,
             Link.target_subreddit_db_id,
             func.count(Link.source_subreddit_db_id).label("weight"),
+            func.average(Link.post_label).label("mean_sentiment"),
         )
         .filter(Link.post_timestamp > clustering_parameters["datetime_interval_start"])
         .filter(Link.post_timestamp < clustering_parameters["datetime_interval_end"])
@@ -130,6 +131,19 @@ def links_to_weight_network(links):
     for link in links:
         network.add_edge(
             link.source_subreddit_db_id, link.target_subreddit_db_id, weight=link.weight
+        )
+
+    return network
+
+
+def links_to_sentiment_network(links):
+    network = networkx.DiGraph()
+    for link in links:
+        network.add_edge(
+            link.source_subreddit_db_id,
+            link.target_subreddit_db_id,
+            weight=link.weight,
+            sentiment=link.mean_sentiment,
         )
 
     return network
