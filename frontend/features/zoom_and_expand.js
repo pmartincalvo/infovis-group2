@@ -8,7 +8,7 @@
 //             />
 //             </div> 
 
-      var width = 1100,
+      var width = 900,
           height = 500,
           expand = {},
           layer,
@@ -59,7 +59,8 @@
         })
         .then(response=>response.json())
         .then(data=>{
-          update(data);
+          update(data)
+          update_heatmap(data);
         })
       };
 

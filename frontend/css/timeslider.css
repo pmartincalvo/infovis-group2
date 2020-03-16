@@ -1,3 +1,7 @@
+#my-time-slider {
+	margin-top: 700px;
+}
+
 .ui-rangeSlider{
 	height:35px;
 }
@@ -84,6 +88,6 @@ input.ui-editRangeSlider-inputValue{
 
 #my-time-slider {
   margin: auto;
-  margin-top:20px;
+  margin-top:50px;
   width: 50%;
 }
