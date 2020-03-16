@@ -91,6 +91,8 @@ def generate_clustered_networks(clustering_parameters):
         db.session.query(
             Link.source_subreddit_db_id,
             Link.target_subreddit_db_id,
+            Link.source_subreddit_name,
+            Link.target_subreddit_name,
             func.count(Link.source_subreddit_db_id).label("weight"),
             func.avg(Link.post_label).label("mean_sentiment"),
         )
