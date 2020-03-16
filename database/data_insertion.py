@@ -39,7 +39,12 @@ def insert_subreddits(files_path):
     unique_subreddit_names.columns = ["name"]
 
     unique_subreddit_names.to_sql(
-        "subreddit", con=pg_engine, if_exists="append", method="multi", index=False
+        "subreddit",
+        con=pg_engine,
+        if_exists="append",
+        method="multi",
+        index=False,
+        chunksize=1024,
     )
 
 
