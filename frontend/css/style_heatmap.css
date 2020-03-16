@@ -1,12 +1,13 @@
 #chart {
-  overflow:auto; 
-  /*margin: auto;*/
-  margin-top: 100px;
-  /*position: right;*/
+  overflow:auto;
+
+  float: right; 
+  margin-top: 50px;
+  margin-right:50px;
+
   border: 3px solid #888;
-  width: 700PX;
-  height: 500PX; 
-  float: left; 
+  width: 700;
+  height: 500; 
 }
 
 rect.bordered {

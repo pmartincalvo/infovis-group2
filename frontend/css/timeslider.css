@@ -1,5 +1,8 @@
 #my-time-slider {
-	margin-top: 700px;
+	position: relative;
+	margin: auto;
+	margin-top: 650px;
+	width:70%;
 }
 
 .ui-rangeSlider{

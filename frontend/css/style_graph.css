@@ -1,16 +1,12 @@
 #my-graph {
+	float:left;
 	margin-top:50px;
-	margin-left:10px;	
+	margin-left:50px;
+
   	border: 3px solid #888;
   	width: 900; 
-  	float:left; 
-  	height:500; 
+  	height: 500; 
 }
-
-/*svg {
-	margin: auto;
-	width: 100%;
-}*/
 
 body {
 	font: 10px sans-serif;
