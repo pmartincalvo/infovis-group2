@@ -129,28 +129,25 @@ def generate_clustered_networks(clustering_parameters):
     return clustered_networks, dendogram, metadata
 
 
-def links_to_weight_network(links):
+def links_to_weight_network(links, include_sentiment=False):
     network = networkx.Graph()
-    for link in links:
-        network.add_edge(
-            link.source_subreddit_db_id, link.target_subreddit_db_id, weight=link.weight
-        )
-
-    return network
-
-
-def links_to_sentiment_network(links):
-    network = networkx.DiGraph()
     for link in links:
         network.add_node(link.source_subreddit_db_id, name=link.source_subreddit_name)
         network.add_node(link.target_subreddit_db_id, name=link.target_subreddit_name)
 
-        network.add_edge(
-            link.source_subreddit_db_id,
-            link.target_subreddit_db_id,
-            weight=link.weight,
-            sentiment=link.mean_sentiment,
-        )
+        if include_sentiment:
+            network.add_edge(
+                link.source_subreddit_db_id,
+                link.target_subreddit_db_id,
+                weight=link.weight,
+                sentiment=link.mean_sentiment,
+            )
+        else:
+            network.add_edge(
+                link.source_subreddit_db_id,
+                link.target_subreddit_db_id,
+                weight=link.weight,
+            )
 
     return network
 
