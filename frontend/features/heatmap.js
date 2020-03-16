@@ -9,6 +9,7 @@
 
 function update_heatmap(data){
 
+
   console.log(data)   
 
   var edges = data.networks[0].edges;
@@ -21,6 +22,8 @@ function update_heatmap(data){
   var colorScale = d3.scale.quantile()
       .domain([-1, 1, 0.2])
       .range(colors);
+
+  d3.select("#chart").select("svg").remove();
 
   var svg = d3.select("#chart").append("svg")
       .attr("width", width + margin.left + margin.right)
