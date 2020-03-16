@@ -121,7 +121,7 @@ def generate_clustered_networks(clustering_parameters):
 
     # Cluster
     weight_network = links_to_weight_network(link_subset)
-    sentiment_network = links_to_sentiment_network(link_subset)
+    sentiment_network = links_to_weight_network(link_subset, include_sentiment=True)
     metadata["subreddit_count"] = weight_network.number_of_nodes()
     clustered_networks, dendogram = compute_clustered_networks(weight_network)
     metadata["network_levels"] = len(clustered_networks)
