@@ -142,6 +142,9 @@ def links_to_weight_network(links):
 def links_to_sentiment_network(links):
     network = networkx.DiGraph()
     for link in links:
+        network.add_node(link.source_subreddit_db_id, name=link.source_subreddit_name)
+        network.add_node(link.target_subreddit_db_id, name=link.target_subreddit_name)
+
         network.add_edge(
             link.source_subreddit_db_id,
             link.target_subreddit_db_id,
@@ -181,7 +184,9 @@ def network_to_custom_format(network):
     return {"nodes": nodes, "weight_edges": edges}
 
 
-def sentiment_graph_for_cluster(network_to_add_sentiment, inferior_level_network, dendrogram_relation):
+def sentiment_graph_for_cluster(
+    network_to_add_sentiment, inferior_level_network, dendrogram_relation
+):
     for edge in network_to_add_sentiment:
         # Grab all subreddits for both nodes using dendrogram relation and inferior network
         # Aggregate mean sentiment and directed weight
