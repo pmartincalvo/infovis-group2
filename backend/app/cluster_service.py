@@ -92,7 +92,7 @@ def generate_clustered_networks(clustering_parameters):
             Link.source_subreddit_db_id,
             Link.target_subreddit_db_id,
             func.count(Link.source_subreddit_db_id).label("weight"),
-            func.average(Link.post_label).label("mean_sentiment"),
+            func.avg(Link.post_label).label("mean_sentiment"),
         )
         .filter(Link.post_timestamp > clustering_parameters["datetime_interval_start"])
         .filter(Link.post_timestamp < clustering_parameters["datetime_interval_end"])
@@ -119,6 +119,7 @@ def generate_clustered_networks(clustering_parameters):
 
     # Cluster
     weight_network = links_to_weight_network(link_subset)
+    sentiment_network = links_to_sentiment_network(link_subset)
     metadata["subreddit_count"] = weight_network.number_of_nodes()
     clustered_networks, dendogram = compute_clustered_networks(weight_network)
     metadata["network_levels"] = len(clustered_networks)
@@ -176,3 +177,11 @@ def network_to_custom_format(network):
     for node in temp_nodes:
         nodes.append({"id": node, "name": ""})
     return {"nodes": nodes, "weight_edges": edges}
+
+
+def sentiment_graph_for_cluster(network_to_add_sentiment, inferior_level_network, dendrogram_relation):
+    for edge in network_to_add_sentiment:
+        # Grab all subreddits for both nodes using dendrogram relation and inferior network
+        # Aggregate mean sentiment and directed weight
+        # Give back the edges
+        pass
