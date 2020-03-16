@@ -5,10 +5,6 @@
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 	    <title>Clustered Network Force Layout</title>
 
-	    <!-- BOOTSTRAP -->
-	    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-	    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-
 	    <!-- STYLE -->
 		<link rel="stylesheet" id="themeCSS" href="css/classic.css"> 
 		<link rel="stylesheet" href="css/style.css">
@@ -44,26 +40,27 @@
 	    	<li style="float:right"><a class="active" href="https://github.com/pmartincalvo/infovis-group2">Our Git</a></li>
 	    </div>
 
-	    <div class="jumbotron text-center">
+	    <!-- <div class="jumbotron text-center">
 	        <img src="logo.png" >
 	    	<div class="top"><h1>Identifying toxic subreddits</h1></div>
-	    </div>
+	    </div> -->
 
 	    <!-- <script>var subreddit = prompt("Give me input");</script> -->
 		<form id="form" onsubmit="return false;">
-			<div style="position:relative; left:5%; width:50%;"> 
-				<h4>Choose a subreddit to investigate, and select which LIWC text features should be shown.</h4>
+			<div id="search_bar"> 
+				<h4>Choose a subreddit to investigate, and select which category of LIWC text features should be shown.</h4>
 			    <input type="text" id="subreddit_input" placeholder="leagueoflegends"/>
-			    <select type="dropdown" id="topic_input" style="width: 20%; padding: 12px 20px; margin: 8px 0; box-sizing: border-box;">
+			    <select id="topic_input" >
 				    <option value="emo">Emotional</option>
 				    <option value="life">Life</option>
 				    <option value="social">Social</option>
 				    <option value="state">Personal state</option>
 				</select>
-				<input type="submit" onclick="othername();"/>
+				<button type="submit" onclick="othername();">Submit</button>
 			</div>
 		</form>
 
+		<div id="bar_chart"> </div>
 		<script src="features/bar_chart.js"></script>
 	</body>  
 </html>  

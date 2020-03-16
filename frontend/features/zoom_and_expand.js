@@ -8,7 +8,7 @@
 //             />
 //             </div> 
 
-      var width = 1100,
+      var width = 900,
           height = 500,
           expand = {},
           layer,
@@ -23,7 +23,7 @@
 
       var fill = d3.scale.category20();
 
-      var svg = d3.select("#my-graph")
+      var svg = d3.select("#graph")
           .append("svg")
           .attr("width", width)
           .attr("height", height);
@@ -59,7 +59,8 @@
         })
         .then(response=>response.json())
         .then(data=>{
-          update(data);
+          update(data)
+          update_heatmap(data);
         })
       };
 
