@@ -1,16 +1,57 @@
-#my-graph {
-	margin-top:50px;
-	margin-left:10px;	
-  	border: 3px solid #888;
-  	width: 900; 
-  	float:left; 
-  	height:500; 
+#main_content {
+    margin-top: 0;
+    min-height: 100%;
+    outline: medium none;
+    overflow: visible;
+    position: relative;
 }
 
-/*svg {
-	margin: auto;
-	width: 100%;
-}*/
+#main_viz {
+    padding-right: 20px;
+    position: relative;
+}
+
+#graph {
+	float:left;
+	overflow: hidden;
+
+	margin-top:50px;
+	margin-left:50px;
+
+  	border: 3px solid #888;
+  	width: 900; 
+  	height: 500;
+}
+
+#chart {
+  overflow:auto;
+
+  float: right; 
+  margin-top: 50px;
+  margin-right:50px;
+
+  border: 3px solid #888;
+  width: 700;
+  height: 500;
+}
+
+#slider_box {
+    padding-right: 20px;
+    position: relative;
+    clear:both;
+}
+
+#time_slider {
+	float: center;
+	position: relative;
+	margin-top: 650px;
+	width:70%;
+}
+
+
+
+
+
 
 body {
 	font: 10px sans-serif;

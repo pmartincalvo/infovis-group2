@@ -23,7 +23,7 @@
 
       var fill = d3.scale.category20();
 
-      var svg = d3.select("#my-graph")
+      var svg = d3.select("#graph")
           .append("svg")
           .attr("width", width)
           .attr("height", height);
