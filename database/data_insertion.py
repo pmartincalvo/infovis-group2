@@ -88,7 +88,7 @@ def insert_links(files_path):
     del all_links, all_subreddits, all_links_one_id
 
     all_links_two_ids.drop(
-        labels=["SOURCE_SUBREDDIT", "TARGET_SUBREDDIT", "name_x", "name_y"],
+        labels=["name_x", "name_y"],
         axis=1,
         inplace=True,
     )
@@ -97,6 +97,8 @@ def insert_links(files_path):
         "POST_ID": "post_id",
         "TIMESTAMP": "post_timestamp",
         "LINK_SENTIMENT": "post_label",
+        "SOURCE_SUBREDDIT": "source_subreddit_name",
+        "TARGET_SUBREDDIT": "target_subreddit_name",
     }
     all_links_two_ids.rename(columns=MAPPING_TO_DB_NAMES, inplace=True)
 
