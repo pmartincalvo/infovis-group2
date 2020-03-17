@@ -30,7 +30,6 @@
 	    <div class="topnav">
 	    	<a href="index.html">Home</a>
 	        <a href="graph.html">Graph</a>
-	    	<a href="heatmap.html">Heatmap</a>
 	    	<a href="bar_chart.html">Search</a>
 	    	<!-- <a href="visualisations.html">Data Visualisation</a> -->
 	    	<li style="float:right"><a class="active" href="https://github.com/pmartincalvo/infovis-group2">Our Git</a></li>
@@ -41,6 +40,16 @@
 	    	<div class="top"><h1>Identifying toxic subreddits</h1></div>
 	    </div> -->
 
+		<!-- Choose sorting order: -->
+		  <select id="order" style="float:right; margin:10px;">
+		  <option value="hclust">by cluster</option>
+		  <option value="probecontrast">by probe name and contrast name</option>
+		  <option value="probe">by probe name</option>
+		  <option value="contrast">by contrast name</option>
+		  <option value="custom">by log2 ratio</option>
+		  </select>
+		  </select>
+
 	    <div id="main_content" class="row rounded">
 		    <div id="main_viz" class="rounded">
 				<div id="graph"> </div>
@@ -48,28 +57,20 @@
 
 		        <div id="chart"></div>
 	   			<script src="features/heatmap.js"></script>
+	   			<div id="tooltip" class="hidden"></div>
 		    </div>
 		    <div id="slider_box" class="rounded">
 		        <div id="time_slider"> </div>
 				<script src="features/dateSliderDemo.js"></script>
 		    </div>
 		</div>
-		<!-- <script src="features/heatmap.js"></script> -->
 		
 	    
-		<!-- <div id="tooltip" class="hidden">
-			<p><span id="value"></p>
-		</div> 
-		<div style="position:relative; margin-left: 30%; margin-top: 100px;">
-		Order: 
-		<select id="order">
-			<option value="hclust">by cluster</option>
-			<option value="probecontrast">by probe name and contrast name</option>
-			<option value="probe">by probe name</option>
-			<option value="contrast">by contrast name</option>
-			<option value="custom">by log2 ratio</option>
-		</select>
-		</div> -->	
+
+		
+	<!-- 	<div id="chart2" style='overflow:auto; width:960px; height:480px;'></div>
+		<script src="features/heatmap_example.js"></script> -->
+
 
 	</body>  
 </html>  

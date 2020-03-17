@@ -59,6 +59,7 @@
         })
         .then(response=>response.json())
         .then(data=>{
+          console.log(data)
           update(data)
           update_heatmap(data);
         })
@@ -80,9 +81,9 @@
             nodes_layer1  = network.networks[1].nodes;
             nodes_layer2  = network.networks[0].nodes;
 
-            edges_initial = network.networks[2].edges;
-            edges_layer1 = network.networks[1].edges;
-            edges_layer2 = network.networks[0].edges;
+            edges_initial = network.networks[2].weight_edges;
+            edges_layer1 = network.networks[1].weight_edges;
+            edges_layer2 = network.networks[0].weight_edges;
 
         console.log(nodes_initial);
 
