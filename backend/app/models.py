@@ -20,7 +20,6 @@ class Link(Base):
     post_timestamp = Column(DateTime)
     source_subreddit_db_id = Column(Integer, ForeignKey("subreddit.db_id"))
     target_subreddit_db_id = Column(Integer, ForeignKey("subreddit.db_id"))
+    source_subreddit_name = Column(String)
+    target_subreddit_name = Column(String)
     post_label = Column(Integer)
-
-    source_subreddit_name = relationship("Subreddit", foreign_keys=[source_subreddit_db_id])
-    target_subreddit_name = relationship("Subreddit", foreign_keys=[target_subreddit_db_id])
