@@ -1,0 +1,66 @@
+<!DOCTYPE html>  
+<html lang="en">  
+	<head>  
+		<meta charset="utf-8">  
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	    <title>Clustered Network Force Layout</title>
+
+	    <!-- STYLE -->
+		<link rel="stylesheet" id="themeCSS" href="css/classic.css"> 
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/style_graph.css">
+	    <link rel="stylesheet" type="text/css" href="css/style_dropdown.css">
+	    <link rel="stylesheet" type="text/css" href="css/style_header.css">
+    	<link rel="stylesheet" type="text/css" href="css/header.css">
+    	<link rel="stylesheet" type="text/css" href="css/bar_chart.css">
+
+		
+		<!-- JQUERY -->
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+		<script src="features/jQDateRangeSlider-min.js"></script>
+
+		<!-- D3 -->
+	    <script src="https://d3js.org/d3.v3.min.js"></script>
+
+		<style>
+		
+		</style>
+
+	</head>  
+
+	<body>
+		<!-- <body style="background-color:#e5f5e0;"> -->
+	    <div class="topnav">
+	    	<a href="index.html">Home</a>
+	        <a href="graph.html">Graph</a>
+	    	<a href="heatmap.html">Heatmap</a>
+	    	<a href="bar_chart.html">Search</a>
+	    	<!-- <a href="visualisations.html">Data Visualisation</a> -->
+	    	<li style="float:right"><a class="active" href="https://github.com/pmartincalvo/infovis-group2">Our Git</a></li>
+	    </div>
+
+	    <!-- <div class="jumbotron text-center">
+	        <img src="logo.png" >
+	    	<div class="top"><h1>Identifying toxic subreddits</h1></div>
+	    </div> -->
+
+	    <!-- <script>var subreddit = prompt("Give me input");</script> -->
+		<form id="form" onsubmit="return false;">
+			<div id="search_bar"> 
+				<h4>Choose a subreddit to investigate, and select which category of LIWC text features should be shown.</h4>
+			    <input type="text" id="subreddit_input" placeholder="leagueoflegends"/>
+			    <select id="topic_input" >
+				    <option value="emo">Emotional</option>
+				    <option value="life">Life</option>
+				    <option value="social">Social</option>
+				    <option value="state">Personal state</option>
+				</select>
+				<button type="submit" onclick="othername();">Submit</button>
+			</div>
+		</form>
+
+		<div id="bar_chart"> </div>
+		<script src="features/bar_chart.js"></script>
+	</body>  
+</html>  

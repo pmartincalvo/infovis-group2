@@ -1,0 +1,44 @@
+input[type=text] {
+	width: 300px;
+	height:40px;
+
+	font-size: 12px;
+	font-weight: bold;
+	color:#555555;
+	padding-top: 2px;
+}
+
+#topic_input {
+	width: 150px;
+	height:40px;
+
+	font-size: 12px;
+	font-weight: bold;
+	color:#555555;
+	padding-top: 2px;
+}
+
+button {
+	width: 130px;
+	height:40px;
+
+	font-size: 12px;
+	font-weight: bold;
+	color:#555555;
+	padding-top: 2px;
+}
+
+
+#search_bar {
+	margin: auto;
+	margin-top: 100px;
+	position: center;
+	width: 60%;
+}
+
+#bar_chart {
+	margin: auto;
+	margin-top:70px;
+	position: center;
+	width: 60%;
+}

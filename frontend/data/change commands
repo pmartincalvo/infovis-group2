@@ -1,0 +1,43 @@
+SUBLIME
+
+^{ -> [\n\t{
+
+}$ -> \n\t}\n]
+
+("[0-9]+") -> \n\t\t"YEAR":$1,
+
+,:{(.+)} -> ,\n\t\t"values": [$1]
+
+], -> ]
+
+]\n\t\t" -> ]\n\t},\n\t{\n\t\t"
+
+\[(.+)\] -> [\n\t\t\t$1\n\t\t]
+
+("[a-zA-Z]+"):([0-9]+\.[0-9]+) -> {\n\t\t\t\t"value": $2,\n\t\t\t\t"LIWC": $1\n\t\t\t}
+
+},{ -> },\n\t\t\t{
+
+
+
+PYTHON
+
+
+import json
+
+with open('LIWC_json/0x10c.json', 'r+') as f:
+    data = json.load(f)
+    data = str(data)
+    
+    data = re.sub(r"^{", "[{", data)
+    data = re.sub(r"}$", "}]", data)
+    data = re.sub(r"('[0-9]+'): {", "'YEAR':\\1, 'values': [", data)
+    data = re.sub(r"}, 'YEAR'", "]},{'YEAR'", data)
+    data = re.sub(r"}}]", "]}]", data)
+    data = re.sub(r"('[a-zA-Z]+'): ([0-9]+\.[0-9]+)", "{'value': \\2,'LIWC': \\1}", data)
+    data = re.sub(r"'", '"', data)
+    
+    data = json.loads(data)     
+    f.seek(0)        # <--- should reset file position to the beginning.
+    json.dump(data, f, indent=4)
+    f.truncate()     # remove remaining part
