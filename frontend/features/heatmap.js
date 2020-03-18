@@ -19,14 +19,6 @@ function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-function findElement(arr, propName, propValue) {
-  for (var i=0; i < arr.length; i++)
-    if (arr[i][propName] == propValue)
-      return arr[i];
-
-  // will return undefined if not found; you could return a default instead
-}
-
 function update_heatmap(data){
 
   var network = data.networks[0];
@@ -140,29 +132,24 @@ function update_heatmap(data){
 
   heatMap.append("title").text(function(d) { return d.mean_sentiment; });
       
-  var legend = svg.selectAll(".legend")
-      .data([0].concat(colorScale.quantiles()), function(d) { return d; })
-      .enter().append("g")
-      .attr("class", "legend");
+  // var legend = svg.selectAll(".legend")
+  //     .data([0].concat(colorScale.quantiles()), function(d) { return d; })
+  //     .enter().append("g")
+  //     .attr("class", "legend");
 
-  legend.append("rect")
-    .attr("x", function(d, i) { return legendElementWidth * i; })
-    .attr("y", height)
-    .attr("width", legendElementWidth)
-    .attr("height", gridSize / 2)
-    .style("fill", function(d, i) { return colors[i]; });
+  // legend.append("rect")
+  //   .attr("x", function(d, i) { return legendElementWidth * i; })
+  //   .attr("y", height)
+  //   .attr("width", legendElementWidth)
+  //   .attr("height", gridSize / 2)
+  //   .style("fill", function(d, i) { return colors[i]; });
 
-  legend.append("text")
-    .attr("class", "mono")
-    .text(function(d) { return Math.round(d * 10) / 10; })
-    .attr("x", function(d, i) { return legendElementWidth * i; })
-    .attr("y", height + gridSize);
+  // legend.append("text")
+  //   .attr("class", "mono")
+  //   .text(function(d) { return Math.round(d * 10) / 10; })
+  //   .attr("x", function(d, i) { return legendElementWidth * i; })
+  //   .attr("y", height + gridSize);
 
-
-
-  d3.select("#heatmap_input").on("change",function(){
-      order(this.value);
-    });
 
   function double_sort(a, b) {
     var o1 = a[3];
@@ -178,8 +165,12 @@ function update_heatmap(data){
     return 0;
   }
 
+  d3.select("#heatmap_input").on("change",function(){
+    order(this.value);
+  });
+
   // sorting
-  function order(value){
+  function order(value, subreddit){
     var t = svg.transition().duration(2000);
 
     // order of the clustering output, of origin en destination nodes, in sentiment_edges
@@ -187,19 +178,6 @@ function update_heatmap(data){
       // restore initial order of subreddits on axes
       var x_order = destination_nodes_unique;
       var y_order = origin_nodes_unique;
-
-    }else if (value=="weights"){
-      edges_array.sort(function(a,b){return b[2] - a[2]});
-
-      var y_order = edges_array.map(function(value) {
-        return value[0];
-      });
-      var x_order = edges_array.map(function(value) {
-        return value[1];
-      });
-
-      var y_order = y_order.filter( onlyUnique );
-      var x_order = x_order.filter( onlyUnique );
 
     }else if (value=="negative"){
       edges_array.sort(function(a,b){
@@ -214,6 +192,31 @@ function update_heatmap(data){
 
       var y_order = y_order.filter( onlyUnique );
       var x_order = x_order.filter( onlyUnique );
+    
+    }else if (value=="subreddits"){
+      var nodes_array=[];
+      for(a in edges){
+        nodes_array.push([nodes[a].id, nodes[a].name])
+      }
+
+      console.log(subreddit);
+
+      var filtered = edges_array.filter(function(x) { return x[4]==subreddit; });
+      console.log(filtered);
+    
+    }else if (value=="weights"){
+      edges_array.sort(function(a,b){return b[2] - a[2]});
+
+      var y_order = edges_array.map(function(value) {
+        return value[0];
+      });
+      var x_order = edges_array.map(function(value) {
+        return value[1];
+      });
+
+      var y_order = y_order.filter( onlyUnique );
+      var x_order = x_order.filter( onlyUnique );
+
     }
 
     t.selectAll(".node")

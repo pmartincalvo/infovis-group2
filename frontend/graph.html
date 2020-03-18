@@ -66,8 +66,9 @@
 				<h5>Choose sorting order for the heatmap:</h5>
 				<select id="heatmap_input">
 					<option value="original_order">original order in data</option>
-					<option value="weights">weights</option>
 					<option value="negative">negative influence</option>
+					<option value="subreddit">selected Subreddit</option>
+					<option value="weights">weights</option>
 				</select>
 				<div id="tooltip_heatmap" class="hidden"></div>
 			</form>			
@@ -77,6 +78,7 @@
 	    <div id="charts">
 	    	<!-- heatmap -->
 	        <div id="heatmap"></div>
+	        <!-- <div id="heatmap_legend"></div> -->
    			<script src="features/heatmap.js"></script>
 
    			<!-- bar chart -->
@@ -88,7 +90,6 @@
 			var subreddit = document.getElementById("subreddit_input").value;
 			var topic = document.getElementById("topic_input").value;
 
-			console.log("test")
 			make_barchart(subreddit, topic);
 		</script>
 

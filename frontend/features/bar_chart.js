@@ -44,8 +44,9 @@ function make_barchart(subreddit, topic) {
         "#D87124", // orange
         "#961882", // purple
         "#CCC620", // yellow
-        "#B51D4D", // red
-        "#166D7E" // blue
+        "#C7202C", // red
+        "#166D7E", //  blue
+        "#E8A2CD" //  pink
       ]);
 
 
@@ -108,15 +109,19 @@ function make_barchart(subreddit, topic) {
         .attr("height", function(d) { return height - y(0); })
         .text(function(d) { return d.YEAR; })
         .on("mouseover", function(d){
-          tooltip.text(d.LIWC+": average score of "+d.value)
-          tooltip.style("visibility", "visible")
+          d3.select("#tooltip_heatmap")
+           .style("left", (d3.event.pageX+10) + "px")
+           .style("top", (d3.event.pageY-10) + "px")
+           .text("subreddit: "+subreddit+", average LIWC: "+Math.round(d.value * 100) / 100+", category: "+d.LIWC);
+          d3.select("#tooltip_heatmap").classed("hidden", false);
           d3.select(this).style("fill", d3.rgb(color(d.LIWC)).darker(2));
         })
         .on("mousemove", function(){
           tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
         })
         .on("mouseout", function(d){
-          tooltip.style("visibility", "hidden");
+          d3.select(this).classed("cell-hover",false);
+          d3.select("#tooltip_heatmap").classed("hidden", true);
           d3.select(this).style("fill", color(d.LIWC));
         });
         
