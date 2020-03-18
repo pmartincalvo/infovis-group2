@@ -167,10 +167,10 @@
               return "yellow";
             }
             else{
-              return "black";
+              return "#555555";
             }
           })
-          .style("stroke-width",1);
+          .style("stroke-width",2);
 
         //添加节点 
         var svg_nodes = svg.selectAll("circle")
@@ -178,7 +178,7 @@
           .enter()
           .append("circle")
           .attr("r",10)
-          .style("fill","#CC9999")
+          .style("fill","#FD8E3C")
           .on("click", click)
           .on("mouseover", nodeOver)
           .on("mouseout", nodeOut)
@@ -216,11 +216,11 @@
           force.start();
 
           d3.selectAll("circle")
-          .style("fill", "#CC9999");
+          .style("fill", "#FD8E3C");
 
           d3.selectAll("line")
-          .style("stroke", "black")
-          .style("stroke-width", "1px");
+          .style("stroke", "#555555")
+          .style("stroke-width", "2px");
 
           // d3.select("#tooltip").classed("hidden", true);
         }
@@ -242,7 +242,7 @@
 
           d3.selectAll("line").filter(function (p) {return filteredEdges.indexOf(p) > -1})
           .style("stroke", "red")
-          .style("stroke-width", "3px");
+          .style("stroke-width", "4px");
 
           d3.selectAll("circle").filter(function (p) {return egoIDs.indexOf(p.id) > -1})
           .style("fill", "#66CCCC");
