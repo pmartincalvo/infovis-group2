@@ -15,6 +15,11 @@ var margin = {
     // colors = [ "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61","#f46d43", "#d73027"];
    // colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"]; // alternatively colorbrewer.YlGnBu[9]
 
+d3.select("#topic_input").on("change",function(){
+  subreddit = document.getElementById("subreddit_input").value;
+  make_barchart(subreddit, this.value);
+});
+
 function onlyUnique(value, index, self) { 
     return self.indexOf(value) === index;
 }
@@ -29,6 +34,10 @@ function update_heatmap(data){
   for(a in edges){
     edges_array.push([edges[a].origin_node_id, edges[a].destination_node_id ,edges[a].weight, edges[a].mean_sentiment])
   }
+  var nodes_array=[];
+  for(a in nodes){
+    nodes_array.push([nodes[a].id, nodes[a].name])
+  };
 
   origin_nodes = edges.map(function(value) {
     return value.origin_node_id;
@@ -113,10 +122,12 @@ function update_heatmap(data){
           d3.selectAll(".rowLabel").classed("text-highlight",function(r,ri){ return ri==(d.row-1);});
           d3.selectAll(".colLabel").classed("text-highlight",function(c,ci){ return ci==(d.col-1);});
           //Update the tooltip_heatmap position and value
+          var source_name = nodes_array.find(x => x[0]==d.origin_node_id);
+          var target_name = nodes_array.find(x => x[0]==d.destination_node_id);
           d3.select("#tooltip_heatmap")
            .style("left", (d3.event.pageX+10) + "px")
            .style("top", (d3.event.pageY-10) + "px")
-           .text("origin: "+d.source.name+", destination: "+d.target.name+", weight: "+d.weight+", sentiment: "+Math.round(d.mean_sentiment * 100) / 100);  
+           .text("origin: "+source_name[1]+", destination: "+target_name[1]+", weight: "+d.weight+", sentiment: "+Math.round(d.mean_sentiment * 100) / 100);  
           //Show the tooltip_heatmap
           d3.select("#tooltip_heatmap").classed("hidden", false);
       })
@@ -166,7 +177,8 @@ function update_heatmap(data){
   }
 
   d3.select("#heatmap_input").on("change",function(){
-    order(this.value);
+    subreddit = document.getElementById("subreddit_input").value;
+    order(this.value, subreddit);
   });
 
   // sorting
@@ -190,19 +202,28 @@ function update_heatmap(data){
         return value[1];
       });
 
-      var y_order = y_order.filter( onlyUnique );
-      var x_order = x_order.filter( onlyUnique );
+      y_order = y_order.filter( onlyUnique );
+      x_order = x_order.filter( onlyUnique );
     
-    }else if (value=="subreddits"){
-      var nodes_array=[];
-      for(a in edges){
-        nodes_array.push([nodes[a].id, nodes[a].name])
-      }
+    }else if (value=="subreddit"){
+      var subreddit_id = nodes_array.find(x => x[1]==subreddit);
+      var as_origin = edges_array.filter(function(x) { return x[0]==subreddit_id[0]; });
+      var as_destination = edges_array.filter(function(x) { return x[1]==subreddit_id[0]; });
 
-      console.log(subreddit);
+      as_origin.sort(function(a,b){
+        return double_sort(a, b, 2, 3)});
+      as_destination.sort(function(a,b){
+        return double_sort(a, b, 2, 3)});
 
-      var filtered = edges_array.filter(function(x) { return x[4]==subreddit; });
-      console.log(filtered);
+      var y_order = as_origin.map(function(value) {
+        return value[1];
+      });
+      var x_order = as_destination.map(function(value) {
+        return value[0];
+      });
+      
+      y_order = [subreddit_id[0]].concat(y_order.filter( onlyUnique ));
+      x_order = [subreddit_id[0]].concat(x_order.filter( onlyUnique ));
     
     }else if (value=="weights"){
       edges_array.sort(function(a,b){return b[2] - a[2]});
@@ -214,10 +235,13 @@ function update_heatmap(data){
         return value[1];
       });
 
-      var y_order = y_order.filter( onlyUnique );
-      var x_order = x_order.filter( onlyUnique );
+      y_order = y_order.filter( onlyUnique );
+      x_order = x_order.filter( onlyUnique );
 
     }
+
+    console.log(x_order)
+    console.log(y_order)
 
     t.selectAll(".node")
       .attr("x", function(d) { return x_order.indexOf(d.destination_node_id) * gridSize; })

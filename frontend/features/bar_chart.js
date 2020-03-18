@@ -1,8 +1,3 @@
-d3.select("#topic_input").on("change",function(){
-  var subreddit = document.getElementById("subreddit_input").value;
-  make_barchart(subreddit, this.value);
-});
-
 function choose_settings() {
   var subreddit = document.getElementById("subreddit_input").value;
   var topic = document.getElementById("topic_input").value;
