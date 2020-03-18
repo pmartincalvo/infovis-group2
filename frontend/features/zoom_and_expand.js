@@ -9,25 +9,10 @@
           root,
           network;
 
-      var curve = d3.svg.line()
-        .interpolate("cardinal-closed")
-        .tension(.85);
-
-      var fill = d3.scale.category20();
-
       var svg = d3.select("#graph")
           .append("svg")
           .attr("width", width)
           .attr("height", height);
-
-      // var force = d3.layout.force()
-      //   .size([width, height])
-      //   //.gravity(0.2)
-      //   .linkDistance(height / 6)
-      //   .charge(function(node) {
-      //     if (node.type !== 'ORG') return -2000;
-      //     return -30;
-      // });
 
       var zoom = d3.behavior.zoom()
                 .scaleExtent([1, 8])
@@ -36,6 +21,10 @@
 
       var link = svg.selectAll(".link");
       var node = svg.selectAll(".node"); 
+
+
+
+
 
       svg.append("defs").selectAll("marker")
         .data(["arrow"])
@@ -158,10 +147,6 @@
 
       function update(node,edge){
 
-// var force = d3.forceSimulation([])
-//       .force(links)
-//       .force
-//       ;
         if(force) force.stop();
         svg.selectAll('circle').remove();
         svg.selectAll('line').remove();
@@ -194,6 +179,9 @@
           .on("mouseover", nodeOver)
           .on("mouseout", nodeOut)
           .call(force.drag);  //使得节点能够拖动
+
+
+
 
         force.on("tick", function(){  //对于每一个时间间隔
       
@@ -243,6 +231,17 @@
 
         function nodeOver(d) {
           force.stop();
+
+          var el = this;
+          d3.select(el).append("text").attr("class", "hoverLabel").attr("stroke", "red").attr("stroke-width", "5px")
+            .style("opacity", .9)
+            .style("pointer-events", "none")
+            .text(d.id);
+
+          d3.select(el).append("text").attr("class", "hoverLabel")
+            .style("pointer-events", "none")
+            .text(d.id);
+
           highlightEgoNetwork(d);
         }
 
@@ -637,11 +636,6 @@
 
       //   }
 
-
-
-
-
-
       function tick() {
         link.attr("x1", function(d) { return d.source.x; })
             .attr("y1", function(d) { return d.source.y; })
@@ -652,29 +646,13 @@
             .attr("cy", function(d) { return d.y; });
       }
 
-      // function color(d) {
-      //   return d.collapsed ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
-      // }
-
       function click(d) {
 
         console.log(d.id);
 
+        
 
-        // if (!d3.event.defaultPrevented) {
-        //   //check if link is from this node, and if so, collapse
-        //   root.links.forEach(function(l) {
-        //     if(l.source.id == d.id) {
-        //       if(d.collapsed){
-        //         l.target.collapsing--;
-        //       } else {
-        //         l.target.collapsing++;
-        //       }
-        //     }
-        //   });
-        //   d.collapsed = !d.collapsed;
-        // }
-        // update();
+
       }
 
         
