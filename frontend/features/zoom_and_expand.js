@@ -136,7 +136,7 @@
           });
         });
 
-        update(initial_nodes,initial_edges);
+        update(layer2_nodes,layer2_weight_edges);
 
       }
 
@@ -151,8 +151,8 @@
               .nodes(node) //指定节点数组
               .links(edge) //指定连线数组
               .size([width,height]) //指定作用域范围
-              .linkDistance(150) //指定连线长度
-              .charge([-200]); //相互之间的作用力
+              .linkDistance(100) //指定连线长度
+              .charge([-400]); //相互之间的作用力
 
               force.start(); 
 
@@ -278,23 +278,18 @@
       }
 
       function tooltipText(d) {
-        var linking = [],
-            children = [];
 
-        // if(d.layer = 0){
+        var a = 'Current Layer: ' + d.layer +', NodeId: ' + d.id ;
+        var b = "";
+        if(d.layer ==2){
+              b += ', NodeName: ' + d.name;
+        };
+
+        console.log(b);
+
+
+        return  a+b;
           
-        // }
-
-        // if(d.layer = 1){
-   
-        // }
-
-        // if(d.layer = 2){
-          
-        // }
-
-
-        return 'Current Layer: ' + d.layer +', NodeId: ' + d.id + ', Nodes link to current node: ' + "test1" + ', Nodes inside current node: ' + "test2";
       }
 
 
