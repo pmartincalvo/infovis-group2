@@ -50,6 +50,7 @@ function test(subreddit, topic) {
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
+      .attr("class", "svg_barchart")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   d3.json("data/LIWC_json/"+topic+"/"+subreddit+".json", function(error, data) {

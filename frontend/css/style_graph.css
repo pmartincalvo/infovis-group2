@@ -1,11 +1,11 @@
-#main_content {
+/*#main_content {
     margin-top: 0;
     min-height: 100%;
     width: 100%;  
     outline: medium none;
     overflow: visible;
     position: relative;
-}
+}*/
 
 
 /* NODE INFO */
@@ -32,7 +32,8 @@
   margin-left: 350px;
   margin-top:30px;
 
-	border: 3px solid #888;
+  overflow: auto;
+  border: 3px solid #888;
 	width: 1100px; 
 	height: 600px;
 }
@@ -40,16 +41,18 @@
 
 /* SETTINGS */
 #settings {
-  padding:auto;
   width:100%;
+  padding:70px;
   clear:both;
 }
+
 #time_slider {
-  float: center;
-  position: relative;
-  margin-top: 700px;
-  width:70%;
+  /*float: center;*/
+  /*position: relative;*/
+  margin: auto;
+  width:900px;
 }
+
 #heatmap_order {
   float:right; 
   margin-right:50px;
@@ -109,12 +112,12 @@ button {
 
 #heatmap {
   overflow:auto;
+  border: 3px solid #888;
 
   float: right; 
   margin-top: 20px;
   margin-right:50px;
 
-  border: 3px solid #888;
   width: 800px;
   height: 600px;
 }
@@ -143,7 +146,9 @@ button {
   line-height: 20px;
 }
 
-
+.svg_barchart {
+  border: 3px solid #888;
+}
 
 
 

@@ -1,5 +1,5 @@
-      var width = 1100,
-          height = 600,
+      var width = 3000,
+          height = 2000,
           expand = {},
           layer,
           node_total = [],
