@@ -1,16 +1,20 @@
+d3.select("#topic_input").on("change",function(){
+  var subreddit = document.getElementById("subreddit_input").value;
+  make_barchart(subreddit, this.value);
+});
 
-function othername() {
+function choose_settings() {
   var subreddit = document.getElementById("subreddit_input").value;
   var topic = document.getElementById("topic_input").value;
-      
-  d3.selectAll("svg").remove();
-  test(subreddit, topic)
+  var order = document.getElementById("heatmap_input").value;
+    
+  make_barchart(subreddit, topic);
 }
 
-function test(subreddit, topic) {
-  var margin = {top: 20, right: 50, bottom: 30, left: 50},
-          width = 960 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
+function make_barchart(subreddit, topic) {
+  var margin = {top: 40, right: 50, bottom: 50, left: 80},
+      width = 800 - margin.left - margin.right,
+      height = 600 - margin.top - margin.bottom;
 
   var x0 = d3.scale.ordinal()
       .rangeRoundBands([0, width], .1);
@@ -22,21 +26,26 @@ function test(subreddit, topic) {
 
   var xAxis = d3.svg.axis()
       .scale(x0)
-      .tickSize(0)
+      .tickSize(2)
+      // .style("fill", "#555555")
+      .tickPadding(10)
       .orient("bottom");
 
   var yAxis = d3.svg.axis()
       .scale(y)
+      .tickSize(2)
+      // .style("fill", "#555555")
+      .tickPadding(10)
       .orient("left");
 
   var color = d3.scale.ordinal()
       .range([
-        "#4BB579", // green
-        "#FED76A", // orange
-        "#9D47A6", // purple
-        "#F0FA68", // yellow
-        "#FE866A", // red
-        "#5563AE" // blue
+        "#18994C", // green
+        "#D87124", // orange
+        "#961882", // purple
+        "#CCC620", // yellow
+        "#B51D4D", // red
+        "#166D7E" // blue
       ]);
 
 
@@ -45,6 +54,8 @@ function test(subreddit, topic) {
       .style("position", "absolute")
       .style("visibility", "hidden")
       .style("background", "#ffffff");
+
+  d3.select("#bar_chart").select("svg").remove();
 
   var svg = d3.select('#bar_chart').append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -77,7 +88,7 @@ function test(subreddit, topic) {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .style('font-weight','bold')
-        .text("Value");
+        .text("average LIWC score");
 
     svg.select('.y').transition().duration(300).delay(600).style('opacity','1');
 

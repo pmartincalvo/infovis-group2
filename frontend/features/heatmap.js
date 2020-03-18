@@ -160,7 +160,7 @@ function update_heatmap(data){
 
 
 
-  d3.select("#heatmap_order").on("change",function(){
+  d3.select("#heatmap_input").on("change",function(){
       order(this.value);
     });
 

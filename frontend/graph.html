@@ -33,59 +33,64 @@
 	    	<li style="float:right"><a class="active" href="https://github.com/pmartincalvo/infovis-group2">Our Git</a></li>
 	    </div>
 
-	    <!-- CONTENT -->
-	    <!-- <div id="main_content"> -->
+    	<!-- NODE INFORMATION -->
+    	<div id="graph_node_info">
+    		<p><strong>Circle information</strong></p>
+	    	<p><span id="info"></span></p>
+    	</div>
+    	<!-- GRAPH -->
+		<div id="graph"> </div>
+			<script src="features/zoom_and_expand.js"></script>
 
-	    	<!-- NODE INFORMATION -->
-	    	<div id="graph_node_info">
-	    		<p><strong>Circle information</strong></p>
-		    	<p><span id="info"></span></p>
-	    	</div>
-	    	<!-- GRAPH -->
-			<div id="graph"> </div>
-   			<script src="features/zoom_and_expand.js"></script>
+   		<!-- SETTINGS -->
+   		<div id="settings1">
+   			<!-- timerange slider -->
+	        <div id="time_slider"> </div>
+			<script src="features/dateSliderDemo.js"></script>
+		</div>
+		<div id="settings2">
+			<!-- bar chart search -->
+			<form id="form" onsubmit="return false;">
+				<h4>Choose a subreddit to investigate:</h4>
+			    <input type="text" id="subreddit_input" value="leagueoflegends"/>
+			    <button type="submit" onclick="choose_settings();">Submit</button>
+			    
+			    <h5>Select which category of LIWC text features should be shown:</h5>
+			    <select id="topic_input" >
+				    <option value="emo">Emotional</option>
+				    <option value="life">Life</option>
+				    <option value="social">Social</option>
+				    <option value="state">Personal state</option>
+				</select>
 
-	   		<!-- SETTINGS -->
-	   		<div id="settings">
-	   			<!-- timerange slider -->
-		        <div id="time_slider"> </div>
-				<script src="features/dateSliderDemo.js"></script>
-
-				<!-- heatmap sorting order -->
-				<div id="tooltip_heatmap" class="hidden"></div>
-				<select id="heatmap_order">
+				<h5>Choose sorting order for the heatmap:</h5>
+				<select id="heatmap_input">
 					<option value="original_order">original order in data</option>
 					<option value="weights">weights</option>
 					<option value="negative">negative influence</option>
 				</select>
+				<div id="tooltip_heatmap" class="hidden"></div>
+			</form>			
+	    </div>
 
-				<!-- bar chart search -->
-				<form id="form" onsubmit="return false;">
-					<div id="search_bar"> 
-						<h4>Choose a subreddit to investigate, and select which category of LIWC text features should be shown.</h4>
-					    <input type="text" id="subreddit_input" placeholder="leagueoflegends"/>
-					    <select id="topic_input" >
-						    <option value="emo">Emotional</option>
-						    <option value="life">Life</option>
-						    <option value="social">Social</option>
-						    <option value="state">Personal state</option>
-						</select>
-						<button type="submit" onclick="othername();">Submit</button>
-					</div>
-				</form>
-		    </div>
+	    <!-- INFO CHARTS -->
+	    <div id="charts">
+	    	<!-- heatmap -->
+	        <div id="heatmap"></div>
+   			<script src="features/heatmap.js"></script>
 
-		    <!-- INFO CHARTS -->
-		    <div id="bar_heat_content">
-		    	<!-- heatmap -->
-		        <div id="heatmap"></div>
-	   			<script src="features/heatmap.js"></script>
+   			<!-- bar chart -->
+   			<div id="bar_chart"> </div>
+			<script src="features/bar_chart.js"></script>
+   		</div>
 
-	   			<!-- bar chart -->
-	   			<div id="bar_chart"> </div>
-				<script src="features/bar_chart.js"></script>
-	   		</div>
+   		<script type="text/javascript">
+			var subreddit = document.getElementById("subreddit_input").value;
+			var topic = document.getElementById("topic_input").value;
 
-		<!-- </div> -->
+			console.log("test")
+			make_barchart(subreddit, topic);
+		</script>
+
 	</body>  
 </html>  
