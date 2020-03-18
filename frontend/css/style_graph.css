@@ -33,6 +33,7 @@
   border: 3px solid #888;
   width: 700;
   height: 500;
+	
 }
 
 #slider_box {
@@ -61,9 +62,6 @@
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   pointer-events: none;
 }
-
-
-
 
 
 
