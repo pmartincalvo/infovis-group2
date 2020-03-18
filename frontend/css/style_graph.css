@@ -1,29 +1,113 @@
 #main_content {
     margin-top: 0;
     min-height: 100%;
+    width: 100%;  
     outline: medium none;
     overflow: visible;
     position: relative;
 }
 
-#main_viz {
-    padding-right: 20px;
-    position: relative;
+
+/* NODE INFO */
+#graph_node_info {
+  float:left;
+  margin-top:30px;
+  margin-left: 350px;
+  width:1050px;
+  height: 50px;
+  background-color: white;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
 }
 
+
+/* GRAPH */
 #graph {
-	float:left;
-	/*overflow: auto;*/
+  float:left;
+  margin-left: 350px;
+  margin-top:30px;
 
-	margin-top:20px;
-	margin-left:50px;
-
-  	border: 3px solid #888;
-  	width: 900; 
-  	height: 500;
+	border: 3px solid #888;
+	width: 1100px; 
+	height: 600px;
 }
 
-#chart {
+
+/* SETTINGS */
+#settings {
+  padding:auto;
+  width:100%;
+  clear:both;
+}
+#time_slider {
+  float: center;
+  position: relative;
+  margin-top: 700px;
+  width:70%;
+}
+#heatmap_order {
+  float:right; 
+  margin-right:50px;
+  margin-top:10px;
+}
+
+#search_bar {
+  margin: auto;
+  margin-top: 100px;
+  position: center;
+  width: 60%;
+}
+input[type=text] {
+  width: 300px;
+  height:40px;
+
+  font-size: 12px;
+  font-weight: bold;
+  color:#555555;
+  padding-top: 2px;
+}
+
+#topic_input {
+  width: 150px;
+  height:40px;
+
+  font-size: 12px;
+  font-weight: bold;
+  color:#555555;
+  padding-top: 2px;
+}
+
+button {
+  width: 130px;
+  height:40px;
+
+  font-size: 12px;
+  font-weight: bold;
+  color:#555555;
+  padding-top: 2px;
+}
+
+
+/* OTHER CHARTS */
+
+#bar_heat_content {
+  width:100%;
+  margin:auto;
+}
+
+#bar_chart {
+  margin: auto;
+  margin-top:70px;
+  position: center;
+  width: 60%;
+}
+
+#heatmap {
   overflow:auto;
 
   float: right; 
@@ -35,31 +119,11 @@
   height: 600px;
 }
 
-#slider_box {
-    padding-right: 20px;
-    position: relative;
-    clear:both;
-}
-
-#time_slider {
-	float: center;
-	position: relative;
-	margin-top: 700px;
-	width:70%;
-}
-
-#order {
-  float:right; 
-  margin-right:50px;
-  margin-top:10px;
-}
-
-#tooltip {
-  /*float:left;*/
-  width:900px;
-  height: 50px;
-  margin-top:20px;
-  margin-left:30px;
+#tooltip_heatmap {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  padding: 10px;
   background-color: white;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -69,6 +133,20 @@
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   pointer-events: none;
 }
+#tooltip_heatmap.hidden {
+  display: none;
+}
+#tooltip_heatmap p {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+
+
+
+
 
 body {
 	font: 10px sans-serif;

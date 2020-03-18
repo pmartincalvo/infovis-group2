@@ -1,4 +1,4 @@
-      var width = 900,
+      var width = 1100,
           height = 600,
           expand = {},
           layer,
@@ -19,7 +19,7 @@
       var link = svg.selectAll(".link");
       var node = svg.selectAll(".node"); 
 
-      var tooltip = d3.select("body")
+      var graph_node_info = d3.select("body")
         .append("div")
         .style("position", "absolute")
         .style("z-index", "10")
@@ -267,11 +267,11 @@
 
                   var coordinates = d3.mouse(this);
 
-          d3.select("#tooltip")
+          d3.select("#graph_node_info")
             .select("#info")
             .text(tooltipText(d));
 
-          d3.select("#tooltip").classed("hidden", false);
+          d3.select("#graph_node_info").classed("hidden", false);
 
       
 

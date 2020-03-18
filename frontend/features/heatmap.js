@@ -55,9 +55,9 @@ function update_heatmap(data){
       .domain([-1, 1, 0.2])
       .range(colors);
 
-  d3.select("#chart").select("svg").remove();
+  d3.select("#heatmap").select("svg").remove();
 
-  var svg = d3.select("#chart").append("svg")
+  var svg = d3.select("#heatmap").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -160,7 +160,7 @@ function update_heatmap(data){
 
 
 
-  d3.select("#order").on("change",function(){
+  d3.select("#heatmap_order").on("change",function(){
       order(this.value);
     });
 
