@@ -1,5 +1,5 @@
       var width = 1300,
-          height = 550,
+          height = 500,
           expand = {},
           layer,
           node_total = [],
@@ -19,19 +19,11 @@
       var link = svg.selectAll(".link");
       var node = svg.selectAll(".node"); 
 
-
-      svg.append("defs").selectAll("marker")
-        .data(["arrow"])
-        .enter().append("marker")
-        .attr("id", function(d) { return d; })
-        .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 15)
-        .attr("refY", -1.5)
-        .attr("markerWidth", 4)
-        .attr("markerHeight", 4)
-        .attr("orient", "auto")
-        .append("path")
-        .attr("d", "M0,-5L10,0L0,5");
+      var tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden");
 
 
       svg
@@ -83,13 +75,27 @@
             layer2_sentiment_edges = networks[0].sentiment_edges;
 
 
+<<<<<<< HEAD
 // <<<<<<< HEAD
             edges_initial = network.networks[2].weight_edges;
             edges_layer1 = network.networks[1].weight_edges;
             edges_layer2 = network.networks[0].weight_edges;
 // =======
 // >>>>>>> master
+||||||| merged common ancestors
+=======
+        initial_nodes.forEach(function(d) {
+          d.layer = 0;
+        });
 
+        layer1_nodes.forEach(function(d) {
+          d.layer = 1;
+        });
+>>>>>>> master
+
+        layer2_nodes.forEach(function(d) {
+          d.layer = 2;
+        });
 
         initial_edges.forEach(function(d, i) {
             d.source = initial_nodes[d.origin_node_id];
@@ -145,7 +151,7 @@
           });
         });
 
-        update(layer1_nodes,layer1_edges);
+        update(initial_nodes,initial_edges);
 
       }
 
@@ -170,7 +176,15 @@
           .data(edge)
           .enter()
           .append("line")
-          .style("stroke","black")
+          .style("stroke",function(d){
+            if(d.mean_sentiment){
+              // if(d.mean_sentiment >= 1)
+              return "yellow";
+            }
+            else{
+              return "black";
+            }
+          })
           .style("stroke-width",1);
 
         //添加节点 
@@ -184,8 +198,6 @@
           .on("mouseover", nodeOver)
           .on("mouseout", nodeOut)
           .call(force.drag);  //使得节点能够拖动
-
-
 
 
         force.on("tick", function(){  //对于每一个时间间隔
@@ -204,48 +216,13 @@
           });
 
 
-          // force.on("tick", function() {
-          //   // make sure the nodes do not overlap the arrows
-          //   link.attr("d", function(d) {
-          //     // Total difference in x and y from source to target
-          //     diffX = d.target.x - d.source.x;
-          //     diffY = d.target.y - d.source.y;
-
-          //     // Length of path from center of source node to center of target node
-          //     pathLength = Math.sqrt((diffX * diffX) + (diffY * diffY));
-
-          //     // x and y distances from center to outside edge of target node
-          //     offsetX = (diffX * d.target.radius) / pathLength;
-          //     offsetY = (diffY * d.target.radius) / pathLength;
-
-          //     return "M" + d.source.x + "," + d.source.y + "L" + (d.target.x - offsetX) + "," + (d.target.y - offsetY);
-          //   });
-
-          //   node.attr("transform", function(d) {
-          //     return "translate(" + d.x + "," + d.y + ")";
-          //   });
-          // });
-
-          // console.log(initial_edges);
-          // // console.log(edges);
-
-          // console.log(initial_nodes);
-          // console.log(layer1_nodes);
-
-          // update(data);
-
         function nodeOver(d) {
           force.stop();
-
-          var el = this;
-          d3.select(el).append("text").attr("class", "hoverLabel").attr("stroke", "red").attr("stroke-width", "5px")
-            .style("opacity", .9)
-            .style("pointer-events", "none")
-            .text(d.id);
-
-          d3.select(el).append("text").attr("class", "hoverLabel")
-            .style("pointer-events", "none")
-            .text(d.id);
+          // console.log(this);
+          // d3.select(el).append("text").attr("class", "hoverLabel").attr("stroke","blue").attr("stroke-width", "5px")
+          //   .style("opacity", .9)
+          //   .style("pointer-events", "none")
+          //   .text(d.id);
 
           highlightEgoNetwork(d);
         }
@@ -259,6 +236,8 @@
           d3.selectAll("line")
           .style("stroke", "black")
           .style("stroke-width", "1px");
+
+          // d3.select("#tooltip").classed("hidden", true);
         }
 
 
@@ -301,9 +280,36 @@
 
         console.log(d.id);
 
-        
+                  var coordinates = d3.mouse(this);
+
+          d3.select("#tooltip")
+            .select("#info")
+            .text(tooltipText(d));
+
+          d3.select("#tooltip").classed("hidden", false);
+
+      
+
+      }
+
+      function tooltipText(d) {
+        var linking = [],
+            children = [];
+
+        // if(d.layer = 0){
+          
+        // }
+
+        // if(d.layer = 1){
+   
+        // }
+
+        // if(d.layer = 2){
+          
+        // }
 
 
+        return 'Current Layer: ' + d.layer +', NodeId: ' + d.id + ', Nodes link to current node: ' + "test1" + ', Nodes inside current node: ' + "test2";
       }
 
 
