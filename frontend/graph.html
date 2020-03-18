@@ -39,20 +39,12 @@
 	        <img src="logo.png" >
 	    	<div class="top"><h1>Identifying toxic subreddits</h1></div>
 	    </div> -->
-	    <div id="tooltip" style = "center">
-	    	<p><strong>Circle information</strong></p>
-	    	<p><span id="info"></span></p>
+	    <div style="width:100%;">
+	    	<div id="tooltip">
+	    		<p><strong>Circle information</strong></p>
+		    	<p><span id="info"></span></p>
+	    	</div>
 	    </div>
-
-		<!-- Choose sorting order: -->
-		  <select id="order" style="float:right; margin:10px;">
-		  <option value="hclust">by cluster</option>
-		  <option value="probecontrast">by probe name and contrast name</option>
-		  <option value="probe">by probe name</option>
-		  <option value="contrast">by contrast name</option>
-		  <option value="custom">by log2 ratio</option>
-		  </select>
-		  </select>
 
 	    <div id="main_content" class="row rounded">
 		    <div id="main_viz" class="rounded">
@@ -61,7 +53,15 @@
 
 		        <div id="chart"></div>
 	   			<script src="features/heatmap.js"></script>
-	   			<div id="tooltip" class="hidden"></div>
+	   			<div id="tooltip_heatmap" class="hidden"></div>
+	   			<!-- Choose sorting order: -->
+				<select id="order" style="float:right; margin:10px;">
+					<option value="hclust">by cluster</option>
+					<option value="probecontrast">by probe name and contrast name</option>
+					<option value="probe">by probe name</option>
+					<option value="contrast">by contrast name</option>
+					<option value="custom">by log2 ratio</option>
+				</select>
 		    </div>
 		    <div id="slider_box" class="rounded">
 		        <div id="time_slider"> </div>

@@ -1,5 +1,5 @@
-      var width = 1300,
-          height = 500,
+      var width = 900,
+          height = 600,
           expand = {},
           layer,
           node_total = [],
@@ -69,10 +69,6 @@
             layer1_edges  = networks[1].weight_edges,
             layer2_weight_edges    = networks[0].weight_edges,
             layer2_sentiment_edges = networks[0].sentiment_edges;
-
-            edges_initial = network.networks[2].weight_edges;
-            edges_layer1 = network.networks[1].weight_edges;
-            edges_layer2 = network.networks[0].weight_edges;
 
         initial_nodes.forEach(function(d) {
           d.layer = 0;

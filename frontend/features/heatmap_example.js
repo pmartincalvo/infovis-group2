@@ -2,8 +2,8 @@
 var  cellSize=12;
   col_number=60;
   row_number=50;
-  // width = cellSize*col_number, // - margin.left - margin.right,
-  // height = cellSize*row_number , // - margin.top - margin.bottom,
+  width = cellSize*col_number, // - margin.left - margin.right,
+  height = cellSize*row_number , // - margin.top - margin.bottom,
   //gridSize = Math.floor(width / 24),
   legendElementWidth = cellSize*2.5,
   colorBuckets = 21,

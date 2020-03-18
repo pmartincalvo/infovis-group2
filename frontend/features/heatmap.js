@@ -119,19 +119,19 @@ function update_heatmap(data){
           d3.select(this).classed("cell-hover",true);
           d3.selectAll(".rowLabel").classed("text-highlight",function(r,ri){ return ri==(d.row-1);});
           d3.selectAll(".colLabel").classed("text-highlight",function(c,ci){ return ci==(d.col-1);});
-          //Update the tooltip position and value
-          d3.select("#tooltip")
+          //Update the tooltip_heatmap position and value
+          d3.select("#tooltip_heatmap")
            .style("left", (d3.event.pageX+10) + "px")
            .style("top", (d3.event.pageY-10) + "px")
            .text("sentiment: "+Math.round(d.mean_sentiment * 100) / 100);  
-          //Show the tooltip
-          d3.select("#tooltip").classed("hidden", false);
+          //Show the tooltip_heatmap
+          d3.select("#tooltip_heatmap").classed("hidden", false);
       })
       .on("mouseout", function(){
           d3.select(this).classed("cell-hover",false);
           // d3.selectAll(".rowLabel").classed("text-highlight",false);
           // d3.selectAll(".colLabel").classed("text-highlight",false);
-          d3.select("#tooltip").classed("hidden", true);
+          d3.select("#tooltip_heatmap").classed("hidden", true);
       });
 
   heatMap.transition().duration(1000)

@@ -57,7 +57,7 @@ text.text-hover {
   fill: #00C;
 }
 
-#tooltip {
+#tooltip_heatmap {
   position: absolute;
   width: 200px;
   height: auto;
