@@ -55,12 +55,10 @@
 	   			<script src="features/heatmap.js"></script>
 	   			<div id="tooltip_heatmap" class="hidden"></div>
 	   			<!-- Choose sorting order: -->
-				<select id="order" style="float:right; margin:10px;">
-					<option value="hclust">by cluster</option>
-					<option value="probecontrast">by probe name and contrast name</option>
-					<option value="probe">by probe name</option>
-					<option value="contrast">by contrast name</option>
-					<option value="custom">by log2 ratio</option>
+				<select id="order">
+					<option value="original_order">original order in data</option>
+					<option value="weights">weights</option>
+					<option value="negative">negative influence</option>
 				</select>
 		    </div>
 		    <div id="slider_box" class="rounded">

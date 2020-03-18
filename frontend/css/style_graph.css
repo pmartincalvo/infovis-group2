@@ -15,7 +15,7 @@
 	float:left;
 	/*overflow: auto;*/
 
-	margin-top:50px;
+	margin-top:20px;
 	margin-left:50px;
 
   	border: 3px solid #888;
@@ -27,7 +27,7 @@
   overflow:auto;
 
   float: right; 
-  margin-top: 50px;
+  margin-top: 20px;
   margin-right:50px;
 
   border: 3px solid #888;
@@ -44,15 +44,22 @@
 #time_slider {
 	float: center;
 	position: relative;
-	margin-top: 650px;
+	margin-top: 700px;
 	width:70%;
+}
+
+#order {
+  float:right; 
+  margin-right:50px;
+  margin-top:10px;
 }
 
 #tooltip {
   /*float:left;*/
   width:900px;
   height: 50px;
-  margin:10px;
+  margin-top:20px;
+  margin-left:30px;
   background-color: white;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
