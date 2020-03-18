@@ -55,13 +55,8 @@
         .then(response=>response.json())
         .then(data=>{
           console.log(data)
-<<<<<<< HEAD
-          update(data)
-          update_heatmap(data);
-=======
           layerselect(data);
           // update_heatmap(data);
->>>>>>> master
         })
       };
 
@@ -83,12 +78,6 @@
             layer2_sentiment_edges = networks[0].sentiment_edges;
 
 
-<<<<<<< HEAD
-            edges_initial = network.networks[2].weight_edges;
-            edges_layer1 = network.networks[1].weight_edges;
-            edges_layer2 = network.networks[0].weight_edges;
-=======
->>>>>>> master
 
 
         initial_edges.forEach(function(d, i) {
