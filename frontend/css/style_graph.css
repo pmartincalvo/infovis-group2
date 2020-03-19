@@ -60,6 +60,11 @@
   clear:both;
 }
 
+#form {
+  float:left;
+  width:40%;
+}
+
 input[type=text] {
   width: 400px;
   height:40px;
@@ -105,7 +110,23 @@ button {
   font-size: 12px;
   font-weight: bold;
   color:#555555;
+}
 
+#explanation {
+  float:right;
+  margin-right:100px;
+  margin-top:20px;
+  width: 600px;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
 }
 
 
@@ -124,6 +145,7 @@ button {
   margin-left: 50px;
   margin-bottom: 100px;
   overflow:auto;
+  padding-top:30px;
 
   width: 800px;
   height: 600px;

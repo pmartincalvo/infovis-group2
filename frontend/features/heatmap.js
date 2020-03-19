@@ -215,10 +215,10 @@ function update_heatmap(data){
       as_destination.sort(function(a,b){
         return double_sort(a, b, 2, 3)});
 
-      var y_order = as_origin.map(function(value) {
+      var x_order = as_origin.map(function(value) {
         return value[1];
       });
-      var x_order = as_destination.map(function(value) {
+      var y_order = as_destination.map(function(value) {
         return value[0];
       });
       
@@ -240,12 +240,26 @@ function update_heatmap(data){
 
     }
 
-    console.log(x_order)
-    console.log(y_order)
+    // console.log(x_order)
+    // console.log(y_order)
 
     t.selectAll(".node")
-      .attr("x", function(d) { return x_order.indexOf(d.destination_node_id) * gridSize; })
-      .attr("y", function(d) { return y_order.indexOf(d.origin_node_id) * gridSize; });
+      .attr("x", function(d) { 
+      	var index = $.inArray(d.destination_node_id, x_order);
+        if (index >= 0){
+          return index * gridSize;
+        }else{
+          return width + gridSize;
+        }
+      })
+      .attr("y", function(d) { 
+      	var index = $.inArray(d.origin_node_id, y_order);
+        if (index >= 0){
+          return index * gridSize;
+        }else{
+          return height + gridSize;
+        }
+      });
 
     t.selectAll(".rowLabel")
       .attr("y", function(d, i) {
