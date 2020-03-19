@@ -1,4 +1,6 @@
-In zoom_and_expand.js:
+# Update of the force-layout graph:
+
+## In zoom_and_expand.js:
 
 1.Add a dropdown box for selecting layer data to force;
 
@@ -13,10 +15,10 @@ In zoom_and_expand.js:
     
 6.Fix the position of the graph when hovering on a node(by stop the force. Still can be dragged.)
     
-In graph.html:
+## In graph.html:
 
 1.Add a div for dropbox
 
-In style_graph.css:
+## In style_graph.css:
 
 1.Add css for dropbox
