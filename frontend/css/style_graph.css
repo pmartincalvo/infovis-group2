@@ -1,20 +1,55 @@
-/*#main_content {
-    margin-top: 0;
-    min-height: 100%;
-    width: 100%;  
-    outline: medium none;
-    overflow: visible;
-    position: relative;
-}*/
+/* SEARCH BAR*/
+
+#search_subreddit {
+  width:30%;
+  margin:auto;
+  clear:both;
+}
+input[type=text] {
+  width: 70%;
+  height:40px;
+
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+  padding-top: 2px;
+}
+button {
+  width: 20%;
+  height:40px;
+
+  font-size: 12px;
+  color: #444;
+  padding-top: 2px;
+}
+
+
+/* GRAPH */
+#graph {
+  float: right;
+  margin-right: 5%;
+  margin-top: 20px;
+  
+  width: 75%; 
+  height: 700px;
+
+  border: 3px solid #888;
+  overflow: auto;
+}
 
 
 /* NODE INFO */
+
 #graph_node_info {
   float:left;
-  margin-top:30px;
-  margin-left: 350px;
-  width:50%;
-  height: 50px;
+  margin-left: 4%;
+  margin-top: 20px;
+  padding:15px;
+  color: #444;
+
+  width:12%;
+  height: auto;
+
   background-color: white;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -26,31 +61,96 @@
 }
 
 
-/* GRAPH */
-#graph {
-  float:left;
-  margin-left: 350px;
-  margin-top:30px;
+/* SELECT LAYER */
 
-  overflow: auto;
-  border: 3px solid #888;
-	width: 50%; 
-	height: 600px;
+#layer_select {
+  float: left;
+
+  width: 12%;
+  height: 40px;
+  margin-top: 50px;
+  margin-left: 4%;
+
+  font-size: 12px;
+  font-weight: bold;
+  color: #444;
 }
+
+ 
+/* HELP */
+
+#help_button {
+  float:left;
+  margin-left: 10px;
+  margin-top: 50px;
+
+  padding:2px;
+  text-align: center;
+  color:#FFFFFF;
+
+  width: 25px;
+  height: 25px;
+
+  background-color: #D35D06;
+  border-radius: 3px;
+  box-shadow: 4px 4px 10px #8F3D00;
+}
+.help {
+  position: relative;
+  display: inline-block;
+}
+.help .helptext {
+  visibility: hidden;
+  width: 300px;
+  top: 100%;
+  left: 25px;
+
+  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+  /*background-color: black;*/
+  color: #444;
+  text-align: left;
+  /*padding: 5px 0;*/
+  border-radius: 6px;
+
+  height: auto;
+  padding: 10px;
+
+  background-color: white;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.help:hover .helptext {
+  visibility: visible;
+}
+
+
+
+
+
 
 
 /* TIME SLIDER */
 #settings1 {
-  width:100%;
-  padding-top:70px;
-  clear:both;
+  width: 100%;
+  padding-top: 70px;
+  clear: both;
 }
 #time_slider {
-  /*float: center;*/
-  /*position: relative;*/
-  margin: auto;
-  width:900px;
+  float: right;
+  margin-right: 15%;
+  width: 55%;
 }
+
 
 /* OTHER SETTINGS */
 #settings2 {
@@ -82,62 +182,35 @@ button {
   font-weight: bold;
   color:#555555;
   padding-top: 2px;
->>>>>>> frontend
 }
 
 #topic_input {
-  width: 250px;
-  height:40px;
+  float: left;
+
+  width: 12%;
+  height: 40px;
+  margin-top: 50px;
+  margin-left: 4%;
 
   font-size: 12px;
   font-weight: bold;
-  color:#555555;
-  padding-top: 2px;
+  color: #444;
 }
 
 #heatmap_input {
-  float:left; 
-  width: 250px;
-  height:40px;
-}
+  float: left;
 
-
-#layer_select {
-  width: 250px;
-  height:40px;
-  margin-top:30px;
-  margin-left: 350px;
+  width: 12%;
+  height: 40px;
+  margin-top: 50px;
+  margin-left: 4%;
 
   font-size: 12px;
   font-weight: bold;
-  color:#555555;
-}
-
-#explanation {
-  float:right;
-  margin-right:100px;
-  margin-top:20px;
-  width: 600px;
-  height: auto;
-  padding: 10px;
-  background-color: white;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  pointer-events: none;
+  color: #444;
 }
 
 
-
-<<<<<<< HEAD
-||||||| merged common ancestors
-
-
-
-=======
 
 /* OTHER CHARTS */
 
@@ -149,22 +222,22 @@ button {
 
 #heatmap {
   float: left;
-  margin-left: 20px;
+  margin-left: 50px;
   margin-bottom: 100px;
   overflow:auto;
   padding-top:30px;
 
-  width: 45%;
+  width: 800px;
   height: 600px;
   border: 3px solid #888;
 }
 
 #bar_chart {
   float: right;
-  margin-right: 20px;
+  margin-right: 50px;
   margin-bottom: 100px;
 
-  width: 45%;
+  width: 800px;
   height: 600px;
   border: 3px solid #888;
 }
@@ -196,7 +269,6 @@ button {
 
 
 /*
->>>>>>> frontend
 body {
 	font: 10px sans-serif;
 }
