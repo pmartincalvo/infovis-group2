@@ -31,14 +31,14 @@
 		<!-- <body style="background-color:#e5f5e0;"> -->
 	    <div class="topnav">
 	    	<a href="index.html">Home</a>
-	        <a href="graph.html">Graph</a>
+<!-- 	        <a href="graph.html">Visualisations</a> -->
 	    	<!-- <a href="visualisations.html">Data Visualisation</a> -->
 	    	<li style="float:right"><a class="active" href="https://github.com/pmartincalvo/infovis-group2">Our Git</a></li>
 	    </div>
 
 	    <div class="jumbotron text-center">
 	        <img src="logo.png" >
-			<div class="top"><h1>Welcome to toXic!</h1><h4>The application for identifying toxic subreddits</h4></div>
+			<div class="top"><h1>Welcome to toXic!</h1><h4>An application for identifying toxic subreddits</h4></div>
 	    </div>
 
 <!DOCTYPE html>
@@ -51,19 +51,57 @@
 
 <button class="collapsible">Introduction</button>
 <div class="content">
-  <p>Due to the frequent use of social media, people interact more and more on platforms in which they create, share, and/or exchange information and ideas. Some of this interactions may be negative and are intended to harm or at least discomfort one's audience, which is also known as trolling. In this application we will focus on a popular social media platform called reddit.com which hosts a large number of sub-communities called subreddits. Various subreddits have particular topics and people can share their opinion on the subject. As you can imagine, lots of these opinions might be negative. This application is designed for a reddit moderator to identify these toxic interactions by visualising the influences subreddits have on each other. </p>
+  <p>Due to the frequent use of <b>social media</b>, people interact more and more on platforms in which they create, share, and/or exchange information. Some of this <b>interactions</b> may be <b>negative</b> and are intended to harm or at least discomfort one's audience, which is also known as trolling. In this application we will focus on a popular social media platform called <a href="reddit.com">reddit.com</a> which hosts a large number of sub-communities called <b>subreddits</b>. Various subreddits have particular topics and people can share their opinion. As you can imagine, lots of these opinions might be negative. This application is designed for a <b>reddit moderator</b> to identify these <b>toxic subreddits</b> by visualising the influences they have on each other. </p>
 </div>
 		
 
 <button class="collapsible">How it works</button>
 <div class="content">
-<p> Multiple visualisations will illustrate the toxic interactions. Firstly, a graph will give an overview of the connections. The user can zoom in on clusters to better see the influences of individual subreddits. The user can choose what the edges will show: intensity, positive relation or negative relation. Once the user has selected an interesting cluster where he/she would like to see more information about, a heatmap which shows for every subreddit in the cluster the extent of negativity will be visible. Also, it shows some more information based on semantics with Linguistic Inquiry and Word Count (LIWC) scores.</p>
-	    </div>
+<p> The following steps will guide you to find the toxic interactions between the subreddits. </p>
+
+<ul>
+  <li><sp><b>Step 1</b></sp>
+  <d>Use the graph to get an overview of the connections of the nodes which represent the subreddits. A layer of clusters can be selected as well as the weights and sentiments by using the dropdown menu. Resize and move the time slider to get information from the graph in a specific time interval. </d></li>
+<!--   <img src="graph.jpeg" alt="First graph"width="300" height="200">
+  <img src="slider.jpeg" alt="First graph" width="300" height="100"> -->
+  <li><sp><b>Step 2</b></sp>
+<d>Change the settings to select the information that is desired to further investigate in the heat map and bar chart.</d></li>
+  <li><sp><b>Step 3</b></sp>
+<d>Use the heat map to get the sentiment of interactions between the subreddits, the more red a square, the more negative an interaction, and the greener, the more positive.</d></li>
+  <li><sp><b>Step 4</b></sp>
+<d>Use the bar chart to get the semantic information about selected subreddits using Linguistic Inquiry and Word Count (LIWC) scores.</d></li>
+</ul> 
+
+<center><a href='graph.html'><button class = "button button5">Find toxic subreddits</button></a></center>
+
+
+
+
+
+<!-- <sp>Hover over me!</sp>
+<d>I will show on hover</d> -->
+<!-- <button class="innercollapsible">Graph</button>
+<div class="innercontent">
+  <p>The graph will give an overview of the connections. The user can zoom in on clusters to better see the influences of individual subreddits. The user can choose what the edges will show: intensity, positive relation or negative relation.</p>
+</div>
+<button class="innercollapsible">Heatmap</button>
+<div class="innercontent">
+  <p>Once the user has selected an interesting cluster where he/she would like to see more information about, a heatmap which shows for every subreddit in the cluster the extent of negativity will be visible. </p>
+</div>
+<button class="innercollapsible">Barchart</button>
+<div class="innercontent">
+  <p> Furthermore, a bar chart is included in the application, which shows semantic information about selected subreddits, using Linguistic Inquiry and Word Count (LIWC) scores.</p>
+</div> -->
+
+</div>
 </div>
 
 <button class="collapsible">Data</button>
 <div class="content">
-  <p>Data was gathered from https://snap.stanford.edu/data/soc-RedditHyperlinks.html. In the data set, 55,863 subreddits(nodes) and 858,490 hyperlinks between subreddits (edges)are present.</p>
+  <p>Data was gathered from <a href="https://snap.stanford.edu/data/soc-RedditHyperlinks.html">here</a>. In the data set, 55,863 subreddits (nodes) and 858,490 hyperlinks between subreddits (edges) are present.</p>
+  <center>
+  <img src="reddit.png" alt="First graph" width="150" height="200"> 
+</center>
 </div>
 
 <script src="features/collaps.js"></script>
