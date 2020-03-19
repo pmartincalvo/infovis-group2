@@ -61,11 +61,13 @@
 
 <ul>
   <li><sp><b>Graph</b></sp>
-  <d>The graph will give an overview of the connections. The user can zoom in on clusters to better see the influences of individual subreddits. The user can choose what the edges will show: intensity, positive relation or negative relation.</d></li>
+  <d>The graph will give an overview of the connections. The user can zoom in on clusters to better see the influences of individual subreddits. The user can choose what the edges will show: intensity, positive relation or negative relation. The dropdown menu can be used to select a layer of clusters. On the deepest level, where the nodes represent individual subreddits, it can also be chosen whether the edges represent weights or sentiment. By hovering a node all links of the node will appear. If a node in layer 2 (subreddit level) is clicked on, the name of the subreddit will be shown in the text block above the graph. The time range of the information that the graph is showing can be altered by resizing and moving the timeslider.</d></li>
+<!--   <img src="graph.jpeg" alt="First graph"width="300" height="200">
+  <img src="slider.jpeg" alt="First graph" width="300" height="100"> -->
   <li><sp><b>Heatmap</b></sp>
-<d>Once the user has selected an interesting cluster where he/she would like to see more information about, a heatmap which shows for every subreddit in the cluster the extent of negativity will be visible.</d></li>
+<d>The heatmap also presents information from the selected timeframe. It shows the sentiment of interactions between subreddits, with interactions going from left (y-axis) to top (x-axis). The more red a square, the more negative an interaction, and the greener, the more positive.</d></li>
   <li><sp><b>Barchart</b></sp>
-<d>Furthermore, a bar chart is included in the application, which shows semantic information about selected subreddits, using Linguistic Inquiry and Word Count (LIWC) scores.</d></li>
+<d>The barchart shows semantic information about selected subreddits, using Linguistic Inquiry and Word Count (LIWC) scores.</d></li>
 </ul> 
 
 
@@ -94,6 +96,9 @@
 <button class="collapsible">Data</button>
 <div class="content">
   <p>Data was gathered from <a href="https://snap.stanford.edu/data/soc-RedditHyperlinks.html">here</a>. In the data set, 55,863 subreddits (nodes) and 858,490 hyperlinks between subreddits (edges) are present.</p>
+  <center>
+  <img src="reddit.png" alt="First graph" width="150" height="200"> 
+</center>
 </div>
 
 <script src="features/collaps.js"></script>
