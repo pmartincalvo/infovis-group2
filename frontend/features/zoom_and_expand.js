@@ -70,19 +70,6 @@
             layer2_weight_edges    = networks[0].weight_edges,
             layer2_sentiment_edges = networks[0].sentiment_edges;
 
-
-        initial_nodes.forEach(function(d) {
-          d.layer = 0;
-        });
-
-        layer1_nodes.forEach(function(d) {
-          d.layer = 1;
-        });
-
-        layer2_nodes.forEach(function(d) {
-          d.layer = 2;
-        });
-
         initial_edges.forEach(function(d, i) {
             d.source = initial_nodes[d.origin_node_id];
             d.target = initial_nodes[d.destination_node_id];
@@ -120,24 +107,18 @@
             }
           } 
         });
-
-
-        var edges = [];
-        initial_edges.forEach(function(e) {
-          var sourceNode = initial_nodes.filter(function(n) {
-              return n.id === e.origin_node_id;
-            })[0],
-            targetNode = initial_nodes.filter(function(n) {
-              return n.id === e.destination_node_id;
-            })[0];
-
-          edges.push({
-            source: sourceNode,
-            target: targetNode,
-          });
+           
+        initial_nodes.forEach(function(d) {
+          d.layer = 0;
         });
 
-        // d3.select("#layer_select")
+        layer1_nodes.forEach(function(d) {
+          d.layer = 1;
+        });
+
+        layer2_nodes.forEach(function(d) {
+          d.layer = 2;
+        });
 
         var myselect=document.getElementById("layer_select");
         var index=myselect.selectedIndex;
@@ -236,14 +217,31 @@
             }
           })
           .style("stroke-width",2);
+            
+        var size_max = [];
+        node.forEach(function(d){
+          size_max.push(d.size);
+
+        });
+        console.log(size_max);
+
+        var maxSize = d3.max(size_max)
+
+        var linear_node = d3.scale.linear()
+                      .domain([1,maxSize])
+                      .range([8,20]);
 
         //添加节点 
         var svg_nodes = svg.selectAll("circle")
           .data(node)
           .enter()
           .append("circle")
-          .attr("r",10)
+          .attr("r",function(d){
+              return linear_node(d.size);
+            })
           .style("fill","#FD8E3C")
+          .attr("stroke", "black")
+          .attr("stroke-width",3)
           .on("click", click)
           .on("mouseover", nodeOver)
           .on("mouseout", nodeOut)
@@ -368,9 +366,10 @@
         var a = 'Current Layer: ' + d.layer +', NodeId: ' + d.id ;
         var b = "";
         if(d.layer ==2){
-              b += ', NodeName: ' + d.name;
+              b += ', NodeName: ' + d.name ;
         };
-        return  a+b;          
+        var c = ', NodeSize: ' + d.size;
+        return  a+b+c;        
       }
 
       function zoomed() {
