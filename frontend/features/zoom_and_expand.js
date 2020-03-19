@@ -213,7 +213,7 @@
           if(d.name){
             if (d.name == chosen_subreddit_name) {
               console.log(d.name);
-              d.x = 1400;
+              d.x = 1200;
               d.y = 500;
               d.fixed = true;
               d.highlight = true;
