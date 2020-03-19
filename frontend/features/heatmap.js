@@ -11,7 +11,9 @@ var margin = {
     height = gridSize*row_number , // - margin.top - margin.bottom,
     legendElementWidth = gridSize,
     buckets = 3,
-    colors = ['#91003F', '#9B1A53', '#A63467', '#B14F7C', '#BB6990', '#C684A4', '#D19EB9', '#DBB9CD', '#E6D3E1', '#F1EEF6', '#FFFFFF', '#EDF8FB', '#D2E6E3', '#B8D4CB', '#9EC2B3', '#83B09B', '#699F83', '#4F8D6B', '#347B53', '#1A693B', '#005824'];
+    colors = ['#7A1700', '#923924', '#AD5E49', '#E3A896', '#FFCFBE', '#FFE9DD', '#FFF8F0', 
+              '#FFFFFF', 
+              '#EDF8FB', '#D2E6E3', '#B8D4CB', '#9EC2B3', '#83B09B', '#699F83', '#4F8D6B', '#347B53', '#1A693B', '#005824'];
     // colors = [ "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61","#f46d43", "#d73027"];
    // colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"]; // alternatively colorbrewer.YlGnBu[9]
 

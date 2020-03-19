@@ -35,13 +35,13 @@ function make_barchart(subreddit, topic) {
 
   var color = d3.scale.ordinal()
       .range([
-        "#18994C", // green
-        "#D87124", // orange
-        "#961882", // purple
-        "#CCC620", // yellow
-        "#C7202C", // red
-        "#166D7E", //  blue
-        "#E8A2CD" //  pink
+        "#306F68", // green
+        "#769E9A", // orange
+        "#84A648", // purple
+        "#D7EDB0", // yellow
+        "#DACD83", // red
+        "#FFF6BE", //  blue
+        "#F6FAEE" //  pink
       ]);
 
 

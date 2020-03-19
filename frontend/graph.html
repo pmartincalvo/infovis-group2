@@ -29,75 +29,97 @@
 		<!-- HEADER -->
 	    <div class="topnav">
 	    	<a href="index.html">Home</a>
-<!-- 	        <a href="graph.html">Graph</a> -->
+	        <a href="graph.html">Graph</a>
 	    	<li style="float:right"><a class="active" href="https://github.com/pmartincalvo/infovis-group2">Our Git</a></li>
 	    </div>
 
-    	<!-- NODE INFORMATION -->
-    	<div id="force_layput">
-	    	<div id="graph_node_info">
-	    		<p><strong>Node information</strong></p>
-		    	<p><span id="info"></span></p>
-	    	</div>
-
-	    	<!-- GRAPH -->
-	    	<div id="graph"> </div>
-			<select id="layer_select">
-				<option value="" selected="selected">Select Layer</option>
-			    <option value="initial_layer">initial_layer</option>
-			    <option value="layer1">layer1</option>
-			    <option value="layer2_weight">layer2_weight</option>
-			    <option value="layer2_sentiment">layer2_sentiment</option>
-			</select>
-			<script src="features/zoom_and_expand.js"></script>
+	    <!-- SEARCH BAR -->
+	    <div style="height:10px; width:100%; clear:both;"></div>
+	    <div id="search_subreddit">
+			<h3>Choose a subreddit to investigate:</h3>
+		    <input type="text" id="subreddit_input" value="leagueoflegends"/>
+		    <button type="submit" onclick="choose_settings();"><strong>Submit</strong></button>
 		</div>
 
-   		<!-- SETTINGS -->
+		<!-- GRAPH -->
+    	<div id="graph"> </div>
+
+		<!-- NODE INFORMATION -->
+    	<div id="graph_node_info">
+    		<p><strong>Subreddit information</strong></p>
+	    	<p><span id="info"></span></p>
+    	</div>
+
+    	<!-- SELECT LAYER -->
+		<select id="layer_select">
+			<option value="" selected="selected">Select Layer</option>
+		    <option value="initial_layer">initial_layer</option>
+		    <option value="layer1">layer1</option>
+		    <option value="layer2_weight">layer2_weight</option>
+		    <option value="layer2_sentiment">layer2_sentiment</option>
+		</select>
+		<script src="features/zoom_and_expand.js"></script>
+		<div class="help" id="help_button">
+			<strong>?</strong>
+			<span class="helptext">
+				Select a layer of Subreddit clusters. A graph will appear on the right.<br/><br/>
+
+				In this graph, the orange nodes represent either Subreddits or clusters of Subreddits,
+				depending on the selected layer. The edges between these nodes represent their interactions. 
+				Use the search bar to find a Subreddit that you are interested in, and use the timeslider to select a timeframe to investigate.
+			</span>
+		</div>
+
+	    <select id="topic_input" >
+		    <option value="emo">Emotional</option>
+		    <option value="life">Life</option>
+		    <option value="social">Social</option>
+		    <option value="state">Personal state</option>
+		</select>
+		<div class="help" id="help_button">
+			<strong>?</strong>
+			<span class="helptext">
+				The bar chart, located at the bottom-right, shows Linguistic Inquiry and Word Count (LIWC) scores,
+				containing semantic information about the selected Subreddit.
+				Select a LIWC feature category to change the type of features to investigate.
+			</span>
+		</div>
+
+		<select id="heatmap_input">
+			<option value="original_order">original order in data</option>
+			<option value="negative">negative influence</option>
+			<option value="subreddit">selected Subreddit</option>
+			<option value="weights">weights</option>
+		</select>
+		<div class="help" id="help_button">
+			<strong>?</strong>
+			<span class="helptext">
+				The heatmap, located at the bottom-left, shows the sentiment of subreddit interactions.
+				Select the sorting order of the Subreddits in the heatmap. When choosing the option 'selected Subreddit',
+				the heatmap will only show interactions coming from and going to the selected Subreddit.
+			</span>
+		</div>
+		
+
+
+
+   		<!-- TIME SLIDER -->
    		<div id="settings1">
-   			<!-- timerange slider -->
 	        <div id="time_slider"> </div>
 			<script src="features/dateSliderDemo.js"></script>
 		</div>
+
+
 		<div id="settings2">
 			<!-- bar chart search -->
-			<form id="form" onsubmit="return false;">
-				<h4>Choose a subreddit to investigate:</h4>
-			    <input type="text" id="subreddit_input" value="leagueoflegends"/>
-			    <button type="submit" onclick="choose_settings();">Submit</button>
-			    
-			    <h5>Select which category of LIWC text features should be shown:</h5>
-			    <select id="topic_input" >
-				    <option value="emo">Emotional</option>
-				    <option value="life">Life</option>
-				    <option value="social">Social</option>
-				    <option value="state">Personal state</option>
-				</select>
-
-				<h5>Choose sorting order for the heatmap:</h5>
-				<select id="heatmap_input">
-					<option value="original_order">original order in data</option>
-					<option value="negative">negative influence</option>
-					<option value="subreddit">selected Subreddit</option>
-					<option value="weights">weights</option>
-				</select>
-				<div id="tooltip_heatmap" class="hidden"></div>
-			</form>	
-			<div id="explanation">
-				<h4>How to use:</h4>
-				<p>The bar chart on the right shows Linguistic Inquiry and Word Count (LIWC) scores,
-				containing semantic information about the subreddit that is submitted in the search bar.
-				Select a LIWC feature category to change the type of features to investigate.
-				The heatmap on the left shows the sentiment of subreddit interactions, where each square
-				represents the influence of the subreddit on the left (y-axis) on the subreddit on top (x-axis).
-				Red squares represent negative influence, green square represent positive influence.
-				Use the bottom dropdown to select the sorting order of subreddits in the heatmap.</p>
-			</div>		
+	
 	    </div>
 
 	    <!-- INFO CHARTS -->
 	    <div id="charts">
 	    	<!-- heatmap -->
 	        <div id="heatmap"></div>
+	        <div id="tooltip_heatmap" class="hidden"></div>
    			<script src="features/heatmap.js"></script>
 
    			<!-- bar chart -->
