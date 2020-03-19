@@ -17,7 +17,7 @@
                 .on("zoom", zoomed); 
 
       var link = svg.selectAll(".link");
-      var node = svg.selectAll(".node");
+      var node = svg.selectAll(".node"); 
 
       var graph_node_info = d3.select("body")
         .append("div")
@@ -38,6 +38,16 @@
         };
         console.log(JSON.stringify(payload));
 
+        var chosen_subreddit_name = document.getElementById("subreddit_input");
+        var pass;
+
+        if(chosen_subreddit_name){
+          pass = chosen_subreddit_name.value;
+        }
+
+        console.log(pass);
+        
+
         fetch("http://0.0.0.0:5000/cluster/",
         {
             method: "POST",
@@ -49,12 +59,12 @@
           console.log(data)
           // update(data)
           update_heatmap(data);
-          layerselect(data);
+          layerselect(data,pass);
         })
       };
 
 
-      function layerselect(data){
+      function layerselect(data,chosen_subreddit_name){
 
         var networks = data.networks,
             dendrogram = data.dendrogram;
@@ -107,75 +117,119 @@
             }
           } 
         });
-           
+
         initial_nodes.forEach(function(d) {
           d.layer = 0;
+          var size_count = 0;
+          initial_edges.forEach(function(e) {
+            if(e.origin_node_id == d.id || e.destination_node_id == d.id)
+            {
+              size_count += 1;
+            }
+          });
+          d.size = size_count;
         });
 
         layer1_nodes.forEach(function(d) {
           d.layer = 1;
+          var size_count = 0;
+          initial_edges.forEach(function(e) {
+            if(e.origin_node_id == d.id || e.destination_node_id == d.id)
+            {
+              size_count += 1;
+            }
+          });
+          d.size = size_count;
         });
 
         layer2_nodes.forEach(function(d) {
           d.layer = 2;
+          var size_count = 0;
+          initial_edges.forEach(function(e) {
+            if(e.origin_node_id == d.id || e.destination_node_id == d.id)
+            {
+              size_count += 1;
+            }
+          });
+          d.size = size_count;
         });
+
 
         var myselect=document.getElementById("layer_select");
         var index=myselect.selectedIndex;
-            // console.log(myselect.options[index].value);
+            console.log(myselect.options[index].value);
 
           if(myselect.options[index].value == "initial_layer"){
-            update(initial_nodes,initial_edges,0);
+            update(initial_nodes,initial_edges,0,chosen_subreddit_name);
           }
 
           if(myselect.options[index].value == "layer1"){
-            update(layer1_nodes,layer1_edges,1);
+            update(layer1_nodes,layer1_edges,1,chosen_subreddit_name);
           }
 
           if(myselect.options[index].value == "layer2_weight"){
-            update(layer2_nodes,layer2_weight_edges,2);
+            update(layer2_nodes,layer2_weight_edges,2,chosen_subreddit_name);
           }
 
           if(myselect.options[index].value == "layer2_sentiment"){
-            update(layer2_nodes,layer2_sentiment_edges,2);
+            update(layer2_nodes,layer2_sentiment_edges,2,chosen_subreddit_name);
           }
 
 
         d3.select("#layer_select").on("change", function() {
-          // console.log(this.value);
+          console.log(this.value);
 
           if(this.value == "initial_layer"){
-            update(initial_nodes,initial_edges,0);
+            update(initial_nodes,initial_edges,0,chosen_subreddit_name);
           }
 
           if(this.value == "layer1"){
-            update(layer1_nodes,layer1_edges,1);
+            update(layer1_nodes,layer1_edges,1,chosen_subreddit_name);
           }
 
           if(this.value == "layer2_weight"){
-            update(layer2_nodes,layer2_weight_edges,2);
+            update(layer2_nodes,layer2_weight_edges,2,chosen_subreddit_name);
           }
 
           if(this.value == "layer2_sentiment"){
-            update(layer2_nodes,layer2_sentiment_edges,2);
+            update(layer2_nodes,layer2_sentiment_edges,2,chosen_subreddit_name);
           }
 
         });
 
-        
 
       }
 
 
-      function update(node,edge,layer){
+      function update(node,edge,layer,chosen_subreddit_name){
 
-        // console.log(layer);
+        console.log(chosen_subreddit_name);
+        console.log(layer);
         var charge_data = (layer+1)*-400; 
-        // console.log(charge_data);
+        console.log(charge_data);
+
+
+        node.forEach(function(d) {
+          if(d.name){
+            if (d.name == chosen_subreddit_name) {
+              console.log(d.name);
+              d.x = 1400;
+              d.y = 500;
+              d.fixed = true;
+              d.highlight = true;
+            } 
+            
+          }
+        })
 
         if(force) force.stop();
         svg.selectAll('circle').remove();
         svg.selectAll('line').remove();
+
+        // var simulation = d3.forceSimulation()
+        //   .force("link", d3.forceLink().id(function(d) { return d.id; }))
+        //   .force("charge", d3.forceManyBody())
+        //   .force("center", d3.forceCenter(width / 2, height / 2));
 
         var force = d3.layout.force()
               .nodes(node) //指定节点数组
@@ -185,15 +239,8 @@
               .charge(charge_data); //相互之间的作用力
               force.start(); 
 
-        // console.log(node[0]);
-
-        // node[0].fx = width / 2;
-        // node[0].fy = height/ 2;
-
-        // console.log(node[0]);
-
-        var a = d3.rgb(255,0,0);  //红色red
-        var b = d3.rgb(0,255,0);  //绿色greed
+        var a = d3.rgb(255,0,0);  //红色
+        var b = d3.rgb(0,255,0);  //绿色
          
         var compute = d3.interpolate(a,b);
         var linear = d3.scale.linear()
@@ -217,13 +264,14 @@
             }
           })
           .style("stroke-width",2);
-            
+
+
         var size_max = [];
         node.forEach(function(d){
           size_max.push(d.size);
 
         });
-        console.log(size_max);
+        // console.log(size_max);
 
         var maxSize = d3.max(size_max)
 
@@ -231,7 +279,6 @@
                       .domain([1,maxSize])
                       .range([8,20]);
 
-        //添加节点 
         var svg_nodes = svg.selectAll("circle")
           .data(node)
           .enter()
@@ -239,7 +286,9 @@
           .attr("r",function(d){
               return linear_node(d.size);
             })
-          .style("fill","#FD8E3C")
+          .style("fill",function(d){
+            return color(d);
+          })
           .attr("stroke", "black")
           .attr("stroke-width",3)
           .on("click", click)
@@ -262,9 +311,16 @@
          //更新节点坐标
          svg_nodes.attr("cx",function(d){ return d.x; })
             .attr("cy",function(d){ return d.y; }); 
-
-
           });
+
+        function color(d){
+          if(d.highlight){
+            return "#15E61C";
+          }
+          else{
+            return "#FD8E3C";
+          }
+        }
 
 
         function nodeOver(d) {
@@ -273,11 +329,18 @@
           highlightEgoNetwork(d);
         }
 
-        function nodeOut() {
+        function nodeOut(d) {
           // force.start();
+
+          console.log(d);
 
           d3.selectAll("circle")
           .style("fill", "#FD8E3C");
+
+          d3.select(this)
+          .style("fill", color(d));
+
+          // d3.select
 
           d3.selectAll("line")
           .style("stroke", function(d){
@@ -335,20 +398,9 @@
 
       }
 
-
-      function tick() {
-        link.attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
-
-        node.attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; });
-      }
-
       function click(d) {
 
-        // console.log(d.id);
+        console.log(d.id);
 
                   var coordinates = d3.mouse(this);
 
@@ -369,11 +421,11 @@
               b += ', NodeName: ' + d.name ;
         };
         var c = ', NodeSize: ' + d.size;
-        return  a+b+c;        
+        return  a+b+c;          
       }
 
       function zoomed() {
-        // console.log(d3.event)
+        console.log(d3.event)
         svg.style("stroke-width", 1.5 / d3.event.scale + "px");
         svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
       } 
