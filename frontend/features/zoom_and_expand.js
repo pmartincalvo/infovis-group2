@@ -70,6 +70,7 @@
             layer2_weight_edges    = networks[0].weight_edges,
             layer2_sentiment_edges = networks[0].sentiment_edges;
 
+
         initial_nodes.forEach(function(d) {
           d.layer = 0;
         });
@@ -136,12 +137,60 @@
           });
         });
 
-        update(layer2_nodes,layer2_weight_edges);
+        // d3.select("#layer_select")
+
+        var myselect=document.getElementById("layer_select");
+        var index=myselect.selectedIndex;
+            console.log(myselect.options[index].value);
+
+          if(myselect.options[index].value == "initial_layer"){
+            update(initial_nodes,initial_edges,0);
+          }
+
+          if(myselect.options[index].value == "layer1"){
+            update(layer1_nodes,layer1_edges,1);
+          }
+
+          if(myselect.options[index].value == "layer2_weight"){
+            update(layer2_nodes,layer2_weight_edges,2);
+          }
+
+          if(myselect.options[index].value == "layer2_sentiment"){
+            update(layer2_nodes,layer2_sentiment_edges,2);
+          }
+
+
+        d3.select("#layer_select").on("change", function() {
+          console.log(this.value);
+
+          if(this.value == "initial_layer"){
+            update(initial_nodes,initial_edges,0);
+          }
+
+          if(this.value == "layer1"){
+            update(layer1_nodes,layer1_edges,1);
+          }
+
+          if(this.value == "layer2_weight"){
+            update(layer2_nodes,layer2_weight_edges,2);
+          }
+
+          if(this.value == "layer2_sentiment"){
+            update(layer2_nodes,layer2_sentiment_edges,2);
+          }
+
+        });
+
+        
 
       }
 
 
-      function update(node,edge){
+      function update(node,edge,layer){
+
+        console.log(layer);
+        var charge_data = (layer+1)*-400; 
+        console.log(charge_data);
 
         if(force) force.stop();
         svg.selectAll('circle').remove();
@@ -152,9 +201,23 @@
               .links(edge) //指定连线数组
               .size([width,height]) //指定作用域范围
               .linkDistance(100) //指定连线长度
-              .charge([-400]); //相互之间的作用力
-
+              .charge(charge_data); //相互之间的作用力
               force.start(); 
+
+        // console.log(node[0]);
+
+        // node[0].fx = width / 2;
+        // node[0].fy = height/ 2;
+
+        // console.log(node[0]);
+
+        var a = d3.rgb(255,0,0);  //红色red
+        var b = d3.rgb(0,255,0);  //绿色greed
+         
+        var compute = d3.interpolate(a,b);
+        var linear = d3.scale.linear()
+                      .domain([0,2])
+                      .range([0,1]);
 
 
         var svg_edges = svg.selectAll("line")
@@ -162,9 +225,11 @@
           .enter()
           .append("line")
           .style("stroke",function(d){
+            // console.log(d);
             if(d.mean_sentiment){
               // if(d.mean_sentiment >= 1)
-              return "yellow";
+              // return "yellow"
+              return compute(linear(d.mean_sentiment+1));
             }
             else{
               return "#555555";
@@ -182,7 +247,10 @@
           .on("click", click)
           .on("mouseover", nodeOver)
           .on("mouseout", nodeOut)
-          .call(force.drag);  //使得节点能够拖动
+          .call(force.drag());
+            // .on("start",dragstarted)
+            // .on("drag",dragged)
+            // .on("end",dragended));  //使得节点能够拖动
 
 
         force.on("tick", function(){  //对于每一个时间间隔
@@ -203,23 +271,28 @@
 
         function nodeOver(d) {
           force.stop();
-          // console.log(this);
-          // d3.select(el).append("text").attr("class", "hoverLabel").attr("stroke","blue").attr("stroke-width", "5px")
-          //   .style("opacity", .9)
-          //   .style("pointer-events", "none")
-          //   .text(d.id);
 
           highlightEgoNetwork(d);
         }
 
         function nodeOut() {
-          force.start();
+          // force.start();
 
           d3.selectAll("circle")
           .style("fill", "#FD8E3C");
 
           d3.selectAll("line")
-          .style("stroke", "#555555")
+          .style("stroke", function(d){
+            // console.log(d);
+            if(d.mean_sentiment){
+              // if(d.mean_sentiment >= 1)
+              // return "yellow"
+              return compute(linear(d.mean_sentiment+1));
+            }
+            else{
+              return "#555555";
+            }
+          })
           .style("stroke-width", "2px");
 
           // d3.select("#tooltip").classed("hidden", true);
@@ -240,8 +313,22 @@
             }
           });
 
+          d3.selectAll("line")
+          .style("stroke", "FFFFFF")
+          .style("stroke-width", "0px");
+
           d3.selectAll("line").filter(function (p) {return filteredEdges.indexOf(p) > -1})
-          .style("stroke", "red")
+          .style("stroke", function(d){
+            // console.log(d);
+            if(d.mean_sentiment){
+              // if(d.mean_sentiment >= 1)
+              // return "yellow"
+              return compute(linear(d.mean_sentiment+1));
+            }
+            else{
+              return "#555555";
+            }
+          })
           .style("stroke-width", "4px");
 
           d3.selectAll("circle").filter(function (p) {return egoIDs.indexOf(p.id) > -1})
@@ -278,20 +365,13 @@
       }
 
       function tooltipText(d) {
-
         var a = 'Current Layer: ' + d.layer +', NodeId: ' + d.id ;
         var b = "";
         if(d.layer ==2){
               b += ', NodeName: ' + d.name;
         };
-
-        console.log(b);
-
-
-        return  a+b;
-          
+        return  a+b;          
       }
-
 
       function zoomed() {
         console.log(d3.event)
