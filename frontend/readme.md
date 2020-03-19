@@ -14,6 +14,9 @@
     (from red(-1< mean_sentiment <0) to green(0< mean_sentiment <1));
     
 6.Fix the position of the graph when hovering on a node(by stop the force. Still can be dragged.)
+
+7.Give each node a new attribute :"size" showing how many nodes in the same layer links to current node. 
+    Used to depend the radius of the nodes.
     
 ## In graph.html:
 
