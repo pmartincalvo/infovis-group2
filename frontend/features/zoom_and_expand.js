@@ -17,7 +17,7 @@
                 .on("zoom", zoomed); 
 
       var link = svg.selectAll(".link");
-      var node = svg.selectAll(".node"); 
+      var node = svg.selectAll(".node");
 
       var graph_node_info = d3.select("body")
         .append("div")
@@ -141,7 +141,7 @@
 
         var myselect=document.getElementById("layer_select");
         var index=myselect.selectedIndex;
-            console.log(myselect.options[index].value);
+            // console.log(myselect.options[index].value);
 
           if(myselect.options[index].value == "initial_layer"){
             update(initial_nodes,initial_edges,0);
@@ -161,7 +161,7 @@
 
 
         d3.select("#layer_select").on("change", function() {
-          console.log(this.value);
+          // console.log(this.value);
 
           if(this.value == "initial_layer"){
             update(initial_nodes,initial_edges,0);
@@ -188,9 +188,9 @@
 
       function update(node,edge,layer){
 
-        console.log(layer);
+        // console.log(layer);
         var charge_data = (layer+1)*-400; 
-        console.log(charge_data);
+        // console.log(charge_data);
 
         if(force) force.stop();
         svg.selectAll('circle').remove();
@@ -350,7 +350,7 @@
 
       function click(d) {
 
-        console.log(d.id);
+        // console.log(d.id);
 
                   var coordinates = d3.mouse(this);
 
@@ -374,7 +374,7 @@
       }
 
       function zoomed() {
-        console.log(d3.event)
+        // console.log(d3.event)
         svg.style("stroke-width", 1.5 / d3.event.scale + "px");
         svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
       } 
